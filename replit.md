@@ -2,7 +2,14 @@
 
 ## Overview
 
-The Philosophical Nexus is an interactive 3D web application that visualizes the interconnected world of philosophical thought across 2,500+ years of history. Built as a Streamlit application, it transforms complex philosophical relationships into an explorable spatial universe through a 3D orb visualization. The platform enables users to discover connections between philosophers, explore their ideas through different lenses (domains, eras, influence networks), and understand how philosophical thought has evolved over time. The application serves university students, educators, and curious generalists who want to explore philosophy through immersive visual experiences rather than traditional text-based approaches.
+The Philosophical Nexus is a revolutionary 3D web application that transforms 2,500+ years of philosophical thought into an immersive spatial universe. Currently built as a Streamlit MVP, it visualizes complex philosophical relationships through an interactive 3D orb where users can explore connections between thinkers, their ideas, and intellectual evolution over time.
+
+The vision encompasses three transformative layers:
+1. **Historical Orb**: Interactive 3D exploration of philosophical history with nested spheres, domain wedges, and animated influence traces
+2. **Personal Orb**: User-generated philosophical profile through quizzes, showing personal beliefs as a crystalline structure with tension/harmony analysis
+3. **Resonance Chamber**: Abstract meditation space with particle systems reflecting the user's philosophical state
+
+Target users include university philosophy students, educators, researchers, and curious generalists seeking immersive alternatives to traditional text-based philosophical study. The platform aims to reduce time-to-understanding for complex philosophical relationships by 60% and establish market leadership in philosophy education technology.
 
 ## User Preferences
 
