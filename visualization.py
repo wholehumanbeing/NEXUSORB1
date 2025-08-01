@@ -139,32 +139,36 @@ class PhilosophicalOrb:
         
         fig.update_layout(
             title=dict(
-                text="Philosophical Nexus Orb",
-                font=dict(color='#00FF00', size=20, family='monospace'),
-                x=0.5
+                text="PHILOSOPHICAL NEXUS ORB",
+                font=dict(color='#00FF00', size=24, family='monospace'),
+                x=0.5,
+                y=0.98
             ),
             scene=dict(
-                bgcolor='rgba(0,0,0,0)',
+                bgcolor='rgba(0,0,0,1)',
                 xaxis=dict(
                     showbackground=False,
                     showticklabels=False,
                     showgrid=False,
                     zeroline=False,
-                    title=""
+                    title="",
+                    range=[-8, 8]
                 ),
                 yaxis=dict(
                     showbackground=False,
                     showticklabels=False,
                     showgrid=False,
                     zeroline=False,
-                    title=""
+                    title="",
+                    range=[-8, 8]
                 ),
                 zaxis=dict(
                     showbackground=False,
                     showticklabels=False,
                     showgrid=False,
                     zeroline=False,
-                    title=""
+                    title="",
+                    range=[-8, 8]
                 ),
                 camera=dict(
                     eye=dict(x=1.5, y=1.5, z=1.5),
@@ -172,15 +176,18 @@ class PhilosophicalOrb:
                 ),
                 aspectmode='cube'
             ),
-            paper_bgcolor='rgba(0,0,0,0)',
-            plot_bgcolor='rgba(0,0,0,0)',
+            paper_bgcolor='rgba(0,0,0,1)',
+            plot_bgcolor='rgba(0,0,0,1)',
             font=dict(color='#00FF00', family='monospace'),
-            margin=dict(l=0, r=0, t=50, b=0),
+            margin=dict(l=0, r=0, t=40, b=0),
+            height=700,
             showlegend=True,
             legend=dict(
-                bgcolor='rgba(0,0,0,0.8)',
+                bgcolor='rgba(0,0,0,0.9)',
                 bordercolor='#00FF00',
-                borderwidth=1
+                borderwidth=1,
+                x=0.02,
+                y=0.98
             )
         )
     

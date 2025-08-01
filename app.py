@@ -92,21 +92,33 @@ def main():
                 st.write(f"Era: {philosopher['era']}")
                 st.write(f"Domain: {philosopher['primaryDomain']}")
     
-    # Main content area
-    col1, col2 = st.columns([3, 1])
+    # Main content area - give more space to the orb
+    col1, col2 = st.columns([4, 1])
     
     with col1:
         # Create and display the 3D orb
         orb = PhilosophicalOrb(processor)
         filtered_df = processor.filter_philosophers(philosophers_df, filter_domain, filter_era, search_term)
         
-        if not filtered_df.empty:
+        if len(filtered_df) > 0:
             fig = orb.create_3d_orb(filtered_df)
             
-            # Handle click events
+            # Display with full container width and height
             selected_points = st.plotly_chart(
                 fig, 
-                use_container_width=True, 
+                use_container_width=True,
+                config={
+                    'displayModeBar': True,
+                    'displaylogo': False,
+                    'modeBarButtonsToRemove': ['pan2d', 'lasso2d', 'select2d', 'autoScale2d'],
+                    'toImageButtonOptions': {
+                        'format': 'png',
+                        'filename': 'philosophical_nexus',
+                        'height': 800,
+                        'width': 1200,
+                        'scale': 1
+                    }
+                },
                 key="philosopher_orb",
                 on_select="rerun"
             )
@@ -117,7 +129,7 @@ def main():
                 if selection and 'points' in selection and selection['points']:
                     point_index = selection['points'][0]['pointIndex']
                     if point_index < len(filtered_df):
-                        st.session_state.selected_philosopher = filtered_df.iloc[point_index]['id']
+                        st.session_state.selected_philosopher = filtered_df.iloc[point_index]['id'] if hasattr(filtered_df, 'iloc') else filtered_df[point_index]['id']
                         st.rerun()
         else:
             st.warning("No philosophers match the current filters.")

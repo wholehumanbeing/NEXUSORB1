@@ -13,16 +13,20 @@ class PhilosopherDataProcessor:
     def load_data(self):
         """Load philosopher data from JSON file"""
         try:
-            # Try to load from data directory first
-            data_path = Path("data/philosophers.json")
-            if not data_path.exists():
-                # If not found, create sample data structure
-                return self.create_empty_dataframe()
+            # Try working data first, then fallback to basic data
+            data_paths = [
+                Path("data/working_philosophers.json"),
+                Path("data/philosophers.json")
+            ]
             
-            with open(data_path, 'r', encoding='utf-8') as f:
-                self.philosophers_data = json.load(f)
+            for data_path in data_paths:
+                if data_path.exists():
+                    with open(data_path, 'r', encoding='utf-8') as f:
+                        self.philosophers_data = json.load(f)
+                    return self.process_data()
             
-            return self.process_data()
+            # If no data found, create empty structure
+            return self.create_empty_dataframe()
             
         except Exception as e:
             st.error(f"Error loading data: {str(e)}")

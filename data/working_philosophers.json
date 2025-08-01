@@ -1,0 +1,401 @@
+[
+  {
+    "id": "kant_immanuel",
+    "name": "Immanuel Kant",
+    "birthYear": 1724,
+    "deathYear": 1804,
+    "birthLocation": {
+      "city": "Königsberg",
+      "region": "Prussia",
+      "modernCountry": "Russia",
+      "coordinates": [54.7051, 20.5101]
+    },
+    "primaryDomain": "Epistemology",
+    "allDomains": [
+      "Epistemology",
+      "Metaphysics",
+      "Ethics",
+      "Politics",
+      "Aesthetics",
+      "Philosophy of Religion",
+      "Cosmology",
+      "Philosophy of Science"
+    ],
+    "domainStrengths": {
+      "Epistemology": 100,
+      "Metaphysics": 95,
+      "Ethics": 100,
+      "Politics": 80,
+      "Aesthetics": 85
+    },
+    "era": "Modern",
+    "eraPosition": 0.6,
+    "spiralDynamicsStage": "Blue-Orange",
+    "spiralJustification": "Immanuel Kant is a quintessential figure of the Enlightenment, embodying a complex position between Blue and Orange stages in Spiral Dynamics. His philosophy is deeply Blue in its emphasis on universal, absolute moral laws (Categorical Imperative), systematic structure (the Critiques, categories of understanding), duty, and order as fundamental principles for both knowledge and action.",
+    "spiralTransitions": ["Blue to Orange"],
+    "philosophicalGenome": {
+      "beingVsBecoming": "Both",
+      "oneVsMany": "Both",
+      "mindVsMatter": "Dualist",
+      "freedomVsDeterminism": "Dualist",
+      "transcendentVsImmanent": "Dualist",
+      "realismVsAntiRealism": "Dualist",
+      "reasonVsExperience": "Synthesis",
+      "absoluteVsRelative": "Absolute"
+    },
+    "switchPoints": [
+      {
+        "question": "How is synthetic a priori knowledge possible?",
+        "position": "Through the mind's a priori structures",
+        "argument": "Following Hume's challenge, Kant argued that knowledge of necessary universal truths (like causation, mathematical laws) cannot come from experience alone (which is contingent and particular) or from analyzing concepts alone (analytic). Such knowledge must be 'synthetic' (informative) and 'a priori' (necessary). He concluded that our minds must actively structure experience using innate forms of intuition (space, time) and categories of understanding (causality, substance), making objects conform to our modes of cognition rather than the other way around (Copernican Revolution).",
+        "domainCascades": {
+          "Epistemology": "Redefines the nature and limits of knowledge, establishing that we know appearances, not things-in-themselves.",
+          "Metaphysics": "Limits speculative metaphysics to the realm of possible experience, making traditional claims about God, soul, and freedom as objects of knowledge impossible.",
+          "Philosophy of Science": "Secures the foundations of Newtonian physics (e.g., causality) as universally valid laws of nature *for us*."
+        }
+      }
+    ],
+    "comprehensiveBiography": "Immanuel Kant was born on April 22, 1724, in Königsberg, Prussia (now Kaliningrad, Russia). His parents, Johann Georg Kant and Anna Regina Porter, were devout Pietists, a movement within Lutheranism emphasizing religious devotion, humility, and reading scripture. This upbringing instilled in Kant a strong sense of moral duty and regularity, though he later reacted against the rigid dogmatism of his schooling while retaining respect for its moral earnestness.",
+    "intellectualJourney": "Immanuel Kant's intellectual journey was a transformation from a follower of the dominant Leibniz-Wolffian rationalism and an enthusiast of Newtonian science into the architect of critical philosophy."
+  },
+  {
+    "id": "aristotle",
+    "name": "Aristotle",
+    "birthYear": -384,
+    "deathYear": -322,
+    "birthLocation": {
+      "city": "Stagira",
+      "region": "Macedonia",
+      "modernCountry": "Greece",
+      "coordinates": [40.5308, 23.7585]
+    },
+    "primaryDomain": "Logic",
+    "allDomains": [
+      "Logic",
+      "Ethics",
+      "Politics",
+      "Metaphysics",
+      "Biology",
+      "Physics",
+      "Rhetoric",
+      "Poetics"
+    ],
+    "domainStrengths": {
+      "Logic": 100,
+      "Ethics": 95,
+      "Politics": 90,
+      "Metaphysics": 95,
+      "Biology": 85
+    },
+    "era": "Ancient",
+    "eraPosition": 0.7,
+    "spiralDynamicsStage": "Blue-Orange",
+    "spiralJustification": "Aristotle represents a sophisticated Blue-Orange synthesis in ancient philosophy. His systematic approach to knowledge, emphasis on categories, formal logic, and hierarchical organization reflects strong Blue characteristics. However, his empirical methodology, scientific observations, and practical wisdom (phronesis) demonstrate Orange tendencies toward evidence-based understanding.",
+    "spiralTransitions": ["Blue to Orange"],
+    "philosophicalGenome": {
+      "beingVsBecoming": "Both",
+      "oneVsMany": "Both",
+      "mindVsMatter": "Synthesis",
+      "freedomVsDeterminism": "Both",
+      "transcendentVsImmanent": "Immanent",
+      "realismVsAntiRealism": "Realist",
+      "reasonVsExperience": "Synthesis",
+      "absoluteVsRelative": "Absolute"
+    },
+    "switchPoints": [
+      {
+        "question": "What is the nature of substance?",
+        "position": "Individual substances as primary reality",
+        "argument": "Aristotle argued against Plato's theory of Forms, maintaining that individual substances (particular things) are the primary reality, not abstract universals. Substances are composites of form and matter (hylomorphism), where form gives structure and actuality to matter. This view grounds reality in the concrete, particular world we experience.",
+        "domainCascades": {
+          "Metaphysics": "Establishes substance as the fundamental category of being",
+          "Logic": "Develops categorical logic based on substance-attribute relationships",
+          "Ethics": "Grounds virtue in the actualization of human form/nature"
+        }
+      }
+    ],
+    "comprehensiveBiography": "Aristotle (384-322 BCE) was born in Stagira, a Greek colony in northern Macedonia. His father, Nicomachus, was court physician to King Amyntas III of Macedonia, which likely influenced Aristotle's early interest in biology and empirical observation. At age 17, he traveled to Athens to study at Plato's Academy, where he remained for 20 years until Plato's death in 347 BCE.",
+    "intellectualJourney": "Aristotle's intellectual development moved from Platonic idealism toward empirical realism and systematic categorization of knowledge. Initially influenced by Plato's theory of Forms, he gradually developed his own philosophy that emphasized the primacy of individual substances and empirical observation."
+  },
+  {
+    "id": "plato",
+    "name": "Plato",
+    "birthYear": -428,
+    "deathYear": -348,
+    "birthLocation": {
+      "city": "Athens",
+      "region": "Attica",
+      "modernCountry": "Greece",
+      "coordinates": [37.9755, 23.7348]
+    },
+    "primaryDomain": "Metaphysics",
+    "allDomains": [
+      "Metaphysics",
+      "Epistemology",
+      "Ethics",
+      "Politics",
+      "Aesthetics",
+      "Education"
+    ],
+    "domainStrengths": {
+      "Metaphysics": 100,
+      "Epistemology": 95,
+      "Ethics": 90,
+      "Politics": 85,
+      "Aesthetics": 80
+    },
+    "era": "Ancient",
+    "eraPosition": 0.6,
+    "spiralDynamicsStage": "Blue",
+    "spiralJustification": "Plato exemplifies Blue consciousness with his emphasis on absolute truth, perfect Forms, hierarchical order, and the pursuit of eternal, unchanging principles. His Republic outlines an ideal state based on justice and proper order, reflecting Blue's preference for systematic structure and absolute values.",
+    "spiralTransitions": ["Purple to Blue"],
+    "philosophicalGenome": {
+      "beingVsBecoming": "Being",
+      "oneVsMany": "One",
+      "mindVsMatter": "Mind",
+      "freedomVsDeterminism": "Both",
+      "transcendentVsImmanent": "Transcendent",
+      "realismVsAntiRealism": "Realist",
+      "reasonVsExperience": "Reason",
+      "absoluteVsRelative": "Absolute"
+    },
+    "switchPoints": [
+      {
+        "question": "What is true knowledge?",
+        "position": "Knowledge of eternal Forms through reason",
+        "argument": "Plato distinguished between knowledge (episteme) and belief (doxa). True knowledge concerns eternal, unchanging Forms - perfect archetypes of all things we experience. The material world is merely a shadow or imperfect copy of these Forms. Through dialectical reasoning and philosophical contemplation, the soul can recall its knowledge of the Forms.",
+        "domainCascades": {
+          "Epistemology": "Establishes rationalist foundation for knowledge",
+          "Metaphysics": "Posits two-world theory of Forms and material reality",
+          "Education": "Emphasizes philosophical training to access true knowledge"
+        }
+      }
+    ],
+    "comprehensiveBiography": "Plato (c. 428-348 BCE) was born into an aristocratic family in Athens during the height of the Athenian Empire. Originally named Aristocles, he acquired the nickname 'Plato' (meaning 'broad') possibly due to his physical build or the breadth of his ideas. His early life was shaped by the Peloponnesian War and the political turmoil of Athens.",
+    "intellectualJourney": "Plato's philosophical development was profoundly influenced by his encounter with Socrates around 407 BCE. Initially interested in politics and poetry, Socrates' execution in 399 BCE redirected Plato toward philosophy as the path to justice and truth."
+  },
+  {
+    "id": "nietzsche_friedrich",
+    "name": "Friedrich Nietzsche",
+    "birthYear": 1844,
+    "deathYear": 1900,
+    "birthLocation": {
+      "city": "Röcken",
+      "region": "Prussia",
+      "modernCountry": "Germany",
+      "coordinates": [51.2461, 12.1516]
+    },
+    "primaryDomain": "Ethics",
+    "allDomains": [
+      "Ethics",
+      "Aesthetics",
+      "Philosophy of Religion",
+      "Cultural Criticism",
+      "Psychology",
+      "Metaphysics"
+    ],
+    "domainStrengths": {
+      "Ethics": 100,
+      "Aesthetics": 95,
+      "Psychology": 90,
+      "Cultural Criticism": 100,
+      "Philosophy of Religion": 85
+    },
+    "era": "Modern",
+    "eraPosition": 0.9,
+    "spiralDynamicsStage": "Orange-Green",
+    "spiralJustification": "Nietzsche embodies a transition from Orange to Green consciousness. His critique of traditional values, emphasis on individual self-creation, and scientific approach to morals reflect Orange thinking. However, his perspectivism, critique of objective truth, and emphasis on diversity of values anticipate Green pluralism.",
+    "spiralTransitions": ["Orange to Green"],
+    "philosophicalGenome": {
+      "beingVsBecoming": "Becoming",
+      "oneVsMany": "Many",
+      "mindVsMatter": "Both",
+      "freedomVsDeterminism": "Freedom",
+      "transcendentVsImmanent": "Immanent",
+      "realismVsAntiRealism": "Anti-realist",
+      "reasonVsExperience": "Experience",
+      "absoluteVsRelative": "Relative"
+    },
+    "switchPoints": [
+      {
+        "question": "What is the source of moral values?",
+        "position": "Human creation, not divine command or natural law",
+        "argument": "Nietzsche argued that moral values are human creations, not discoveries of eternal truths. Through genealogical analysis, he showed how Christian morality emerged from the resentment of the weak against the strong. He called for a 'revaluation of all values' and the creation of new values by strong, creative individuals (the Übermensch).",
+        "domainCascades": {
+          "Ethics": "Challenges foundation of traditional morality",
+          "Philosophy of Religion": "Proclaims the 'death of God' and end of absolute values",
+          "Psychology": "Develops analysis of human motivations and the will to power"
+        }
+      }
+    ],
+    "comprehensiveBiography": "Friedrich Wilhelm Nietzsche was born on October 15, 1844, in Röcken, a small village in Prussia. His father, Carl Ludwig Nietzsche, was a Lutheran pastor, and his early life was steeped in religious tradition. However, the death of his father when Friedrich was just four years old profoundly impacted his worldview.",
+    "intellectualJourney": "Nietzsche's intellectual development moved from classical philology through pessimistic philosophy influenced by Schopenhauer toward his mature philosophy of life-affirmation and value creation. His encounter with Wagner's aesthetics and later break with both Wagner and Schopenhauer marked crucial turning points."
+  },
+  {
+    "id": "descartes_rene",
+    "name": "René Descartes",
+    "birthYear": 1596,
+    "deathYear": 1650,
+    "birthLocation": {
+      "city": "La Haye en Touraine",
+      "region": "Touraine",
+      "modernCountry": "France",
+      "coordinates": [47.1167, 0.7667]
+    },
+    "primaryDomain": "Epistemology",
+    "allDomains": [
+      "Epistemology",
+      "Metaphysics",
+      "Mathematics",
+      "Physics",
+      "Medicine",
+      "Philosophy of Mind"
+    ],
+    "domainStrengths": {
+      "Epistemology": 100,
+      "Metaphysics": 90,
+      "Mathematics": 95,
+      "Philosophy of Mind": 85,
+      "Physics": 80
+    },
+    "era": "Modern",
+    "eraPosition": 0.1,
+    "spiralDynamicsStage": "Orange",
+    "spiralJustification": "Descartes embodies Orange consciousness through his emphasis on methodical doubt, scientific method, mathematical reasoning, and individual rational autonomy. His mechanical view of nature and systematic approach to knowledge reflect Orange values of efficiency, rationality, and progress through method.",
+    "spiralTransitions": ["Blue to Orange"],
+    "philosophicalGenome": {
+      "beingVsBecoming": "Being",
+      "oneVsMany": "One",
+      "mindVsMatter": "Dualist",
+      "freedomVsDeterminism": "Dualist",
+      "transcendentVsImmanent": "Transcendent",
+      "realismVsAntiRealism": "Realist",
+      "reasonVsExperience": "Reason",
+      "absoluteVsRelative": "Absolute"
+    },
+    "switchPoints": [
+      {
+        "question": "How can we achieve certain knowledge?",
+        "position": "Through methodical doubt and clear reasoning",
+        "argument": "Descartes developed the method of systematic doubt to find an indubitable foundation for knowledge. By doubting everything that could possibly be false, he arrived at the cogito: 'I think, therefore I am.' From this certain starting point, he built a system of knowledge using clear and distinct ideas, mathematical reasoning, and the existence of a non-deceiving God.",
+        "domainCascades": {
+          "Epistemology": "Establishes foundationalist approach to knowledge",
+          "Metaphysics": "Develops mind-body dualism",
+          "Science": "Promotes mathematical method in natural philosophy"
+        }
+      }
+    ],
+    "comprehensiveBiography": "René Descartes was born on March 31, 1596, in La Haye en Touraine (now Descartes), France, into a family of minor nobility. His father, Joachim Descartes, was a lawyer and magistrate, which provided the family with comfortable circumstances. Descartes' mother died when he was just over a year old, and he was raised primarily by his grandmother.",
+    "intellectualJourney": "Descartes' intellectual journey began with classical education at the Jesuit college of La Flèche, where he excelled in mathematics and developed his love for systematic thinking. His famous 'method of doubt' emerged from dissatisfaction with the uncertainty of traditional learning."
+  },
+  {
+    "id": "socrates",
+    "name": "Socrates",
+    "birthYear": -470,
+    "deathYear": -399,
+    "birthLocation": {
+      "city": "Athens",
+      "region": "Attica",
+      "modernCountry": "Greece",
+      "coordinates": [37.9755, 23.7348]
+    },
+    "primaryDomain": "Ethics",
+    "allDomains": [
+      "Ethics",
+      "Epistemology",
+      "Political Philosophy",
+      "Philosophy of Education"
+    ],
+    "domainStrengths": {
+      "Ethics": 100,
+      "Epistemology": 90,
+      "Political Philosophy": 85,
+      "Philosophy of Education": 95
+    },
+    "era": "Ancient",
+    "eraPosition": 0.5,
+    "spiralDynamicsStage": "Blue",
+    "spiralJustification": "Socrates embodies Blue consciousness through his belief in absolute moral truths, the importance of virtue, and the conviction that knowledge leads to right action. His methodical questioning seeks universal definitions and unchanging principles of justice and virtue.",
+    "spiralTransitions": ["Purple to Blue"],
+    "philosophicalGenome": {
+      "beingVsBecoming": "Being",
+      "oneVsMany": "One",
+      "mindVsMatter": "Mind",
+      "freedomVsDeterminism": "Freedom",
+      "transcendentVsImmanent": "Transcendent",
+      "realismVsAntiRealism": "Realist",
+      "reasonVsExperience": "Reason",
+      "absoluteVsRelative": "Absolute"
+    },
+    "switchPoints": [
+      {
+        "question": "What is virtue and how do we acquire it?",
+        "position": "Virtue is knowledge; no one does wrong willingly",
+        "argument": "Socrates argued that virtue is knowledge of good and evil. If someone truly knows what is good, they will necessarily act virtuously, because no one willingly chooses evil. Apparent wrongdoing stems from ignorance. Therefore, moral education through philosophical inquiry can lead to virtuous action.",
+        "domainCascades": {
+          "Ethics": "Establishes intellectualist approach to moral development",
+          "Epistemology": "Links knowledge and moral action",
+          "Education": "Emphasizes questioning and self-examination as paths to wisdom"
+        }
+      }
+    ],
+    "comprehensiveBiography": "Socrates (c. 470-399 BCE) was born in Athens to Sophroniscus, a stoneworker, and Phaenarete, a midwife. He lived his entire life in Athens during its golden age and decline. Unlike other philosophers, Socrates wrote nothing down; our knowledge of his teachings comes primarily through Plato's dialogues.",
+    "intellectualJourney": "Socrates' philosophical mission began with the Oracle of Delphi's pronouncement that he was the wisest man in Athens. Through questioning various experts, he discovered that his wisdom lay in knowing that he knew nothing, leading to his method of elenctic questioning to expose ignorance and seek truth."
+  },
+  {
+    "id": "hume_david",
+    "name": "David Hume",
+    "birthYear": 1711,
+    "deathYear": 1776,
+    "birthLocation": {
+      "city": "Edinburgh",
+      "region": "Scotland",
+      "modernCountry": "United Kingdom",
+      "coordinates": [55.9533, -3.1883]
+    },
+    "primaryDomain": "Epistemology",
+    "allDomains": [
+      "Epistemology",
+      "Ethics",
+      "Philosophy of Religion",
+      "Political Philosophy",
+      "Aesthetics"
+    ],
+    "domainStrengths": {
+      "Epistemology": 100,
+      "Ethics": 85,
+      "Philosophy of Religion": 90,
+      "Political Philosophy": 80,
+      "Aesthetics": 75
+    },
+    "era": "Modern",
+    "eraPosition": 0.4,
+    "spiralDynamicsStage": "Orange",
+    "spiralJustification": "Hume represents Orange consciousness through his empirical skepticism, scientific naturalism, and systematic critique of traditional authorities. His emphasis on experience, observation, and methodical doubt over abstract reasoning exemplifies Orange values.",
+    "spiralTransitions": ["Blue to Orange"],
+    "philosophicalGenome": {
+      "beingVsBecoming": "Becoming",
+      "oneVsMany": "Many",
+      "mindVsMatter": "Both",
+      "freedomVsDeterminism": "Determinism",
+      "transcendentVsImmanent": "Immanent",
+      "realismVsAntiRealism": "Anti-realist",
+      "reasonVsExperience": "Experience",
+      "absoluteVsRelative": "Relative"
+    },
+    "switchPoints": [
+      {
+        "question": "What can we know through reason alone?",
+        "position": "Reason is limited; all knowledge comes from experience",
+        "argument": "Hume argued that reason alone cannot provide knowledge of matters of fact. All meaningful ideas derive from sense impressions. Causality, the self, and inductive reasoning cannot be rationally justified but are products of habit and custom. This skeptical conclusion challenged rationalist philosophy and awakened Kant from his 'dogmatic slumber.'",
+        "domainCascades": {
+          "Epistemology": "Establishes empiricist skepticism about rational knowledge",
+          "Philosophy of Religion": "Undermines rational arguments for God's existence",
+          "Ethics": "Grounds moral judgments in sentiment rather than reason"
+        }
+      }
+    ],
+    "comprehensiveBiography": "David Hume was born on April 26, 1711, in Edinburgh, Scotland, to a family of minor landed gentry. His father died when he was young, and he was raised by his mother. Hume briefly studied law at the University of Edinburgh but found it uncongenial and turned to philosophy.",
+    "intellectualJourney": "Hume's philosophical development was shaped by his early reading of empiricist philosophers like Locke and Berkeley, combined with his skeptical temperament. His major work, 'A Treatise of Human Nature,' written in his twenties, laid out his revolutionary empirical philosophy."
+  }
+]

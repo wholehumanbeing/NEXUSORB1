@@ -40,9 +40,36 @@ def apply_retro_styles():
     
     /* Main content styling */
     .main .block-container {
-        padding-top: 2rem;
-        padding-bottom: 2rem;
+        padding-top: 1rem;
+        padding-bottom: 0rem;
+        padding-left: 0rem;
+        padding-right: 0rem;
         max-width: 100%;
+    }
+    
+    /* Remove padding from plotly containers */
+    .js-plotly-plot .plotly .modebar {
+        background-color: rgba(0, 0, 0, 0.8) !important;
+        border: 1px solid #00FF00 !important;
+    }
+    
+    /* Plotly container full width */
+    .js-plotly-plot {
+        width: 100% !important;
+        height: 100% !important;
+    }
+    
+    /* Make the orb container fill the space */
+    .stPlotlyChart {
+        background-color: transparent !important;
+        border: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    
+    /* Remove any default borders on columns */
+    .css-1r6slb0 {
+        padding: 0rem 0.5rem !important;
     }
     
     /* Sidebar styling */
