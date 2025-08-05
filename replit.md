@@ -18,14 +18,22 @@ Preferred communication style: Simple, everyday language.
 ## System Architecture
 
 ### Frontend Architecture
-The application uses **Streamlit** as the primary web framework, providing a Python-based approach to building interactive web applications. The architecture follows a modular design pattern with separate modules handling different concerns:
+The application has evolved from a **Streamlit** prototype to a full **Next.js + React + Three.js** implementation for immersive 3D visualization. The architecture follows a modern component-based pattern:
 
-- **app.py**: Main application entry point that orchestrates the user interface and coordinates between different modules
-- **data_processor.py**: Handles all data loading and processing operations, implementing caching for performance
-- **visualization.py**: Contains the PhilosophicalOrb class responsible for creating 3D visualizations using Plotly
-- **styles.py**: Manages the retro/cassette-futurism visual theme with custom CSS
+**Next.js Application Structure:**
+- **nexus/app/page.tsx**: Main application entry point with layer navigation
+- **nexus/components/layers/HistoricalOrb.tsx**: Primary 3D historical philosophy visualization
+- **nexus/components/3d/**: Three.js components for 3D rendering (PhilosopherCluster, NestedSpheres, FractillionTrace)
+- **nexus/lib/stores/**: Zustand state management for application data
+- **nexus/lib/data/**: Data loading and transformation utilities
 
-The chosen Streamlit framework enables rapid prototyping and deployment while providing built-in state management and caching capabilities. This approach prioritizes development speed and ease of maintenance over complex frontend frameworks.
+**Key Technology Stack:**
+- **Next.js 14**: React framework with server-side rendering
+- **React Three Fiber**: React bindings for Three.js 3D graphics
+- **Drei**: Helper components for React Three Fiber
+- **Zustand**: Lightweight state management
+- **TypeScript**: Type safety and developer experience
+- **Tailwind CSS**: Utility-first styling with custom retro-futuristic theme
 
 ### Data Processing Layer
 The system implements a **PhilosopherDataProcessor** class that handles JSON data loading and transformation. The processor converts raw philosopher data into pandas DataFrames for efficient manipulation and visualization. It includes error handling for missing data files and creates fallback empty structures to maintain application stability.
@@ -70,13 +78,42 @@ A custom CSS injection system creates the retro-futuristic aesthetic featuring:
 - **Plotly**: Interactive graphing library providing 3D visualization capabilities through Graph Objects and Express modules
 - **NetworkX**: Graph theory library for analyzing philosopher relationship networks (imported but not fully implemented in current codebase)
 
-### Data Storage
-- **JSON Files**: Local file-based storage for philosopher data located in `/data/philosophers.json`
-- No external database dependencies in current implementation
-- File system-based data loading with fallback mechanisms for missing data
+### Data Storage & Database Architecture
+**Current Implementation:**
+- **JSON Files**: Philosopher data stored in `nexus/public/data/philosophers.json`
+- **8 Philosophers**: Comprehensive dataset with Kant, Aristotle, Nietzsche, Plato, Descartes, Hume, Spinoza, Hegel
+- **Connection Mapping**: Influence and critique relationships between philosophers with strength ratings
+- **PostgreSQL Ready**: Database available for future scaling to 100+ philosophers
+
+**Planned Database Schema:**
+- **philosophers**: Core philosopher data (biography, genome, domains)
+- **philosopher_domains**: Domain strength mappings
+- **switch_points**: Key philosophical positions and arguments
+- **influences**: Philosopher influence relationships
+- **critiques**: Philosophical critique relationships
+
+**Data Structure Features:**
+- Complete philosophical genome (8-dimensional positioning)
+- Spiral Dynamics developmental stage classification
+- Historical influence and critique networks
+- Domain expertise ratings across 8 philosophical areas
+- 3D spatial positioning for immersive visualization
 
 ### Development Tools
 - **Pathlib**: Standard library for cross-platform file path handling
 - **JSON**: Built-in Python module for data serialization/deserialization
 
-The application is designed to run as a standalone Streamlit application without external service dependencies, making it suitable for local development and simple deployment scenarios. The modular architecture allows for future expansion to include database backends, API integrations, or more sophisticated 3D rendering engines.
+The application is designed as a scalable 3D visualization platform that can handle 100+ philosophers with full database integration. The current Next.js implementation provides immersive 3D exploration with plans for:
+
+**Future Expansion:**
+- **Database Integration**: Full PostgreSQL backend for 100+ philosophers
+- **Personal Orb Layer**: User philosophy profiling through interactive quizzes
+- **Resonance Chamber**: Meditative visualization reflecting user's philosophical state
+- **Advanced Filtering**: Era, domain, and influence-based exploration
+- **Social Features**: User profiles and philosophical discussion threads
+
+**Research Integration:**
+- Comprehensive research prompt created for scaling to 100 philosophers
+- Agentic AI integration for automated philosopher data compilation
+- Scholarly accuracy requirements with primary source verification
+- Complete SQL database generation from research data
