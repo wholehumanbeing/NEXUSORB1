@@ -16,7 +16,7 @@ export function PhilosopherCluster({ philosophers, onPhilosopherClick }: Philoso
   const materialRef = useRef<THREE.ShaderMaterial>(null);
   
   const { geometry, material } = useMemo(() => {
-    const geom = new THREE.SphereGeometry(0.3, 32, 32);
+    const geom = new THREE.SphereGeometry(0.08, 8, 8);
     
     // Map spiral dynamics stages to color indices
     const getSpiralIndex = (stage: string): number => {
@@ -40,25 +40,44 @@ export function PhilosopherCluster({ philosophers, onPhilosopherClick }: Philoso
         uniform float time;
         varying float vSpiral;
         varying float vSelection;
+        varying vec3 vPosition;
+        varying float vDistance;
         
         void main() {
           vSpiral = spiralStage;
           vSelection = selectionState;
+          vPosition = position;
           
           vec3 pos = position;
-          // Subtle breathing animation
-          pos += 0.02 * sin(time * 2.0 + spiralStage * 10.0) * normal;
+          // Subtle radar pulse effect
+          float pulse = 0.5 + 0.5 * sin(time * 3.0 + spiralStage * 5.0);
+          pos *= (1.0 + pulse * 0.1);
           
           vec4 mvPosition = modelViewMatrix * instanceMatrix * vec4(pos, 1.0);
+          vDistance = length(mvPosition.xyz);
           gl_Position = projectionMatrix * mvPosition;
         }
       `,
       fragmentShader: `
         uniform vec3 spiralColors[8];
+        uniform float time;
         varying float vSpiral;
         varying float vSelection;
+        varying vec3 vPosition;
+        varying float vDistance;
         
         void main() {
+          // Create distance-based fade for radar effect
+          float distanceFromCenter = length(vPosition);
+          
+          // Radar sweep effect
+          float sweep = sin(time * 2.0 + distanceFromCenter * 2.0) * 0.5 + 0.5;
+          
+          // Wireframe grid effect
+          vec3 grid = abs(fract(vPosition * 8.0) - 0.5) / fwidth(vPosition * 8.0);
+          float wireframe = 1.0 - min(min(grid.x, grid.y), grid.z);
+          
+          // Color selection
           int colorIndex = int(floor(vSpiral));
           int nextColorIndex = int(ceil(vSpiral));
           float mixFactor = fract(vSpiral);
@@ -69,13 +88,25 @@ export function PhilosopherCluster({ philosophers, onPhilosopherClick }: Philoso
             mixFactor
           );
           
-          float glow = 1.0 + vSelection * 2.0;
-          float alpha = 0.8 + vSelection * 0.2;
+          // Particle glow core
+          float core = 1.0 - smoothstep(0.0, 0.3, distanceFromCenter);
           
-          gl_FragColor = vec4(baseColor * glow, alpha);
+          // Selection highlight
+          float selectionGlow = 1.0 + vSelection * 3.0;
+          
+          // Combine effects
+          float intensity = (core * 0.8 + wireframe * 0.3 + sweep * 0.2) * selectionGlow;
+          float alpha = intensity * (0.6 + vSelection * 0.4);
+          
+          // Fade based on camera distance for depth
+          alpha *= 1.0 - smoothstep(20.0, 50.0, vDistance);
+          
+          gl_FragColor = vec4(baseColor * intensity, alpha);
         }
       `,
-      transparent: true
+      transparent: true,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false
     });
     
     return { geometry: geom, material: mat };
@@ -101,9 +132,9 @@ export function PhilosopherCluster({ philosophers, onPhilosopherClick }: Philoso
       // Position in 3D space
       dummy.position.set(...phil.position);
       
-      // Scale based on total domain influence
+      // Scale based on total domain influence - subtle size variation
       const totalStrength = Object.values(phil.domainStrengths).reduce((sum, val) => sum + val, 0);
-      const scale = 0.8 + (totalStrength / 500); // Scale between 0.8 and 2.4
+      const scale = 0.8 + (totalStrength / 2000); // Scale between 0.8 and 1.3
       dummy.scale.setScalar(scale);
       
       dummy.updateMatrix();

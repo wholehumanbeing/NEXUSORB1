@@ -8,6 +8,7 @@ const Environment = dynamic(() => import('@react-three/drei').then(mod => ({ def
 import { PhilosopherCluster } from '@/components/3d/PhilosopherCluster';
 import { FractillionTrace } from '@/components/3d/FractillionTrace';
 import { NestedSpheres } from '@/components/3d/NestedSpheres';
+import { ParticleField } from '@/components/3d/ParticleField';
 import { useHistoricalOrbStore } from '@/lib/stores/historical-orb-store';
 import { FilterPanel } from '@/components/ui/FilterPanel';
 import { PhilosopherModal } from '@/components/ui/PhilosopherModal';
@@ -80,9 +81,10 @@ export function HistoricalOrb() {
         className="w-full h-full"
       >
         <Environment preset="night" />
-        <ambientLight intensity={0.2} color="#00FF00" />
-        <pointLight position={[10, 10, 10]} intensity={0.5} color="#00FFFF" />
+        <ambientLight intensity={0.1} color="#00FF00" />
+        <pointLight position={[10, 10, 10]} intensity={0.3} color="#00FFFF" />
         
+        <ParticleField />
         <NestedSpheres eras={['Ancient', 'Medieval', 'Modern', 'Contemporary']} />
         <PhilosopherCluster 
           philosophers={filteredPhilosophers} 
