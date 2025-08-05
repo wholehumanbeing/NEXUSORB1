@@ -1,0 +1,34 @@
+{
+  "name": "philosophical-nexus",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 3000",
+    "build": "next build",
+    "start": "next start -p 5000",
+    "lint": "next lint",
+    "ingest": "tsx scripts/ingest-data.ts"
+  },
+  "dependencies": {
+    "next": "14.1.0",
+    "react": "^18.2.0", 
+    "react-dom": "^18.2.0",
+    "typescript": "^5.3.3",
+    "@types/node": "^20.11.5",
+    "@types/react": "^18.2.48",
+    "@types/react-dom": "^18.2.18",
+    "three": "^0.160.0",
+    "@react-three/fiber": "^8.15.0",
+    "@react-three/drei": "^9.95.0",
+    "zustand": "^4.4.7",
+    "@stitches/react": "^1.2.8",
+    "tailwindcss": "^3.4.1",
+    "autoprefixer": "^10.4.17",
+    "postcss": "^8.4.33",
+    "neo4j-driver": "^5.16.0",
+    "@supabase/supabase-js": "^2.38.5",
+    "gsap": "^3.12.2",
+    "framer-motion": "^10.16.16",
+    "tsx": "^4.7.0"
+  }
+}
