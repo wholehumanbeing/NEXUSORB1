@@ -474,6 +474,9 @@ video {
 .z-20{
   z-index: 20;
 }
+.z-40{
+  z-index: 40;
+}
 .z-50{
   z-index: 50;
 }
@@ -491,6 +494,9 @@ video {
 }
 .mb-6{
   margin-bottom: 1.5rem;
+}
+.ml-2{
+  margin-left: 0.5rem;
 }
 .mt-1{
   margin-top: 0.25rem;
@@ -515,6 +521,9 @@ video {
 }
 .h-3{
   height: 0.75rem;
+}
+.h-4{
+  height: 1rem;
 }
 .h-6{
   height: 1.5rem;
@@ -545,6 +554,9 @@ video {
 }
 .w-32{
   width: 8rem;
+}
+.w-4{
+  width: 1rem;
 }
 .w-6{
   width: 1.5rem;
@@ -634,6 +646,11 @@ video {
   margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(0.5rem * var(--tw-space-y-reverse));
 }
+.space-y-3 > :not([hidden]) ~ :not([hidden]){
+  --tw-space-y-reverse: 0;
+  margin-top: calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(0.75rem * var(--tw-space-y-reverse));
+}
 .space-y-4 > :not([hidden]) ~ :not([hidden]){
   --tw-space-y-reverse: 0;
   margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
@@ -703,6 +720,9 @@ video {
 .bg-opacity-20{
   --tw-bg-opacity: 0.2;
 }
+.bg-opacity-60{
+  --tw-bg-opacity: 0.6;
+}
 .bg-opacity-75{
   --tw-bg-opacity: 0.75;
 }
@@ -725,6 +745,9 @@ video {
 }
 .p-4{
   padding: 1rem;
+}
+.p-6{
+  padding: 1.5rem;
 }
 .p-8{
   padding: 2rem;
@@ -1059,6 +1082,9 @@ a {
 .hover\:bg-phosphor-green:hover{
   --tw-bg-opacity: 1;
   background-color: rgb(0 255 0 / var(--tw-bg-opacity));
+}
+.hover\:bg-opacity-30:hover{
+  --tw-bg-opacity: 0.3;
 }
 .hover\:text-black:hover{
   --tw-text-opacity: 1;

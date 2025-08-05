@@ -12,6 +12,8 @@ import { ParticleField } from '@/components/3d/ParticleField';
 import { useHistoricalOrbStore } from '@/lib/stores/historical-orb-store';
 import { FilterPanel } from '@/components/ui/FilterPanel';
 import { PhilosopherModal } from '@/components/ui/PhilosopherModal';
+import { PhilosopherTooltip } from '@/components/ui/PhilosopherTooltip';
+import { PhilosopherPreview } from '@/components/ui/PhilosopherPreview';
 import { useEffect } from 'react';
 
 export function HistoricalOrb() {
@@ -19,7 +21,13 @@ export function HistoricalOrb() {
     philosophers, 
     connections, 
     selectedPhilosopher,
+    hoveredPhilosopher,
+    previewPhilosopher,
+    mousePosition,
     selectPhilosopher,
+    setHoveredPhilosopher,
+    setPreviewPhilosopher,
+    setMousePosition,
     setPhilosophers,
     setConnections,
     filters,
@@ -47,7 +55,19 @@ export function HistoricalOrb() {
   };
 
   const handlePhilosopherClick = (philosopher: any) => {
-    selectPhilosopher(philosopher);
+    setPreviewPhilosopher(philosopher);
+  };
+
+  const handlePhilosopherHover = (philosopher: any) => {
+    setHoveredPhilosopher(philosopher);
+  };
+
+  const handleMouseMove = (event: React.MouseEvent) => {
+    setMousePosition({ x: event.clientX, y: event.clientY });
+  };
+
+  const handlePreviewClose = () => {
+    setPreviewPhilosopher(null);
   };
 
   // Filter philosophers based on selected filters
@@ -74,7 +94,10 @@ export function HistoricalOrb() {
   });
 
   return (
-    <div className="relative h-screen bg-black text-phosphor-green">
+    <div 
+      className="relative h-screen bg-black text-phosphor-green" 
+      onMouseMove={handleMouseMove}
+    >
       {/* 3D Canvas */}
       <Canvas 
         camera={{ position: [0, 0, 10], fov: 60 }}
@@ -89,6 +112,7 @@ export function HistoricalOrb() {
         <PhilosopherCluster 
           philosophers={filteredPhilosophers} 
           onPhilosopherClick={handlePhilosopherClick}
+          onPhilosopherHover={handlePhilosopherHover}
         />
         <FractillionTrace connections={connections} />
         
@@ -105,6 +129,18 @@ export function HistoricalOrb() {
         <FilterPanel />
       </div>
       
+      {/* Tooltip */}
+      {hoveredPhilosopher && (
+        <PhilosopherTooltip 
+          philosopher={hoveredPhilosopher} 
+          position={mousePosition} 
+        />
+      )}
+      
+      {/* Preview Modal */}
+      {previewPhilosopher && <PhilosopherPreview philosopher={previewPhilosopher} />}
+      
+      {/* Full Bio Modal */}
       {selectedPhilosopher && <PhilosopherModal philosopher={selectedPhilosopher} />}
       
       {/* Loading State */}

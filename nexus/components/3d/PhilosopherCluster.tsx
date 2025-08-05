@@ -9,9 +9,10 @@ import { SPIRAL_DYNAMICS_COLORS } from '@/lib/design-system';
 interface PhilosopherClusterProps {
   philosophers: PhilosopherNode[];
   onPhilosopherClick?: (philosopher: PhilosopherNode) => void;
+  onPhilosopherHover?: (philosopher: PhilosopherNode | null) => void;
 }
 
-export function PhilosopherCluster({ philosophers, onPhilosopherClick }: PhilosopherClusterProps) {
+export function PhilosopherCluster({ philosophers, onPhilosopherClick, onPhilosopherHover }: PhilosopherClusterProps) {
   const meshRef = useRef<THREE.InstancedMesh>(null);
   const materialRef = useRef<THREE.ShaderMaterial>(null);
   
@@ -106,7 +107,8 @@ export function PhilosopherCluster({ philosophers, onPhilosopherClick }: Philoso
       `,
       transparent: true,
       blending: THREE.AdditiveBlending,
-      depthWrite: false
+      depthWrite: false,
+      side: THREE.DoubleSide
     });
     
     return { geometry: geom, material: mat };
@@ -159,8 +161,9 @@ export function PhilosopherCluster({ philosophers, onPhilosopherClick }: Philoso
     }
   });
 
-  // Click handling
+  // Click and hover handling
   const handleClick = (event: any) => {
+    event.stopPropagation();
     if (!onPhilosopherClick || event.instanceId === undefined) return;
     
     const philosopher = philosophers[event.instanceId];
@@ -169,11 +172,53 @@ export function PhilosopherCluster({ philosophers, onPhilosopherClick }: Philoso
     }
   };
 
+  const handlePointerOver = (event: any) => {
+    event.stopPropagation();
+    if (!onPhilosopherHover || event.instanceId === undefined) return;
+    
+    const philosopher = philosophers[event.instanceId];
+    if (philosopher) {
+      onPhilosopherHover(philosopher);
+    }
+  };
+
+  const handlePointerOut = (event: any) => {
+    event.stopPropagation();
+    if (onPhilosopherHover) {
+      onPhilosopherHover(null);
+    }
+  };
+
   return (
     <instancedMesh
       ref={meshRef}
       args={[geometry, material, philosophers.length]}
       onClick={handleClick}
+      onPointerOver={handlePointerOver}
+      onPointerOut={handlePointerOut}
+      raycast={(raycaster, intersects) => {
+        // Custom raycast to ensure proper detection with shader materials
+        const mesh = meshRef.current;
+        if (!mesh) return;
+        
+        const tempMatrix = new THREE.Matrix4();
+        const tempPosition = new THREE.Vector3();
+        
+        for (let i = 0; i < philosophers.length; i++) {
+          mesh.getMatrixAt(i, tempMatrix);
+          tempPosition.setFromMatrixPosition(tempMatrix);
+          
+          const distance = raycaster.ray.distanceToPoint(tempPosition);
+          if (distance < 0.5) { // Tolerance for clicking
+            intersects.push({
+              distance,
+              point: tempPosition.clone(),
+              object: mesh,
+              instanceId: i
+            } as any);
+          }
+        }
+      }}
     />
   );
 }
