@@ -197,11 +197,11 @@ export function generateConnections(rawData: RawPhilosopherData[]): Connection[]
 }
 
 /**
- * Load and process philosopher data from JSON file
+ * Load and process philosopher data from database API
  */
 export async function loadPhilosopherData(): Promise<{ philosophers: PhilosopherNode[], connections: Connection[] }> {
   try {
-    const response = await fetch('/data/philosophers.json');
+    const response = await fetch('/api/philosophers');
     if (!response.ok) {
       throw new Error(`Failed to load philosopher data: ${response.statusText}`);
     }
@@ -216,6 +216,19 @@ export async function loadPhilosopherData(): Promise<{ philosophers: Philosopher
     return { philosophers, connections };
   } catch (error) {
     console.error('Error loading philosopher data:', error);
+    // Fallback to JSON file if API fails
+    try {
+      const fallbackResponse = await fetch('/data/philosophers.json');
+      if (fallbackResponse.ok) {
+        const fallbackData: RawPhilosopherData[] = await fallbackResponse.json();
+        const philosophers = transformPhilosopherData(fallbackData);
+        const connections = generateConnections(fallbackData);
+        console.log('Using fallback JSON data:', philosophers.length, 'philosophers');
+        return { philosophers, connections };
+      }
+    } catch (fallbackError) {
+      console.error('Fallback also failed:', fallbackError);
+    }
     throw error;
   }
 }
