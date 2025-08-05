@@ -83,8 +83,12 @@ export function PhilosopherCluster({ philosophers, onPhilosopherClick }: Philoso
 
   // Set up instanced matrices and attributes
   useEffect(() => {
-    if (!meshRef.current || philosophers.length === 0) return;
+    if (!meshRef.current || philosophers.length === 0) {
+      console.log('PhilosopherCluster: No mesh or no philosophers', { meshExists: !!meshRef.current, philosopherCount: philosophers.length });
+      return;
+    }
     
+    console.log('PhilosopherCluster: Setting up', philosophers.length, 'philosophers');
     const dummy = new THREE.Object3D();
     const spiralStages = new Float32Array(philosophers.length);
     
@@ -99,11 +103,14 @@ export function PhilosopherCluster({ philosophers, onPhilosopherClick }: Philoso
     
     philosophers.forEach((phil, i) => {
       // Position in 3D space
+      console.log(`Philosopher ${phil.name} position:`, phil.position);
       dummy.position.set(...phil.position);
       
       // Scale based on total domain influence
       const totalStrength = Object.values(phil.domainStrengths).reduce((sum, val) => sum + val, 0);
-      dummy.scale.setScalar(0.05 + (totalStrength / 1000)); // Scale between 0.05 and 0.55
+      const scale = 0.05 + (totalStrength / 1000);
+      console.log(`Philosopher ${phil.name} scale:`, scale);
+      dummy.scale.setScalar(scale); // Scale between 0.05 and 0.55
       
       dummy.updateMatrix();
       meshRef.current!.setMatrixAt(i, dummy.matrix);
@@ -128,8 +135,8 @@ export function PhilosopherCluster({ philosophers, onPhilosopherClick }: Philoso
   });
 
   // Click handling
-  const handleClick = (event: THREE.Event) => {
-    if (!onPhilosopherClick || !event.instanceId) return;
+  const handleClick = (event: any) => {
+    if (!onPhilosopherClick || event.instanceId === undefined) return;
     
     const philosopher = philosophers[event.instanceId];
     if (philosopher) {
