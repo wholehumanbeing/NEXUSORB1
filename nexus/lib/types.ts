@@ -1,5 +1,7 @@
 export type Domain = 'Logic' | 'Ethics' | 'Metaphysics' | 'Epistemology' | 'Politics' | 'Aesthetics' | 'Philosophy of Religion' | 'Philosophy of Science';
 
+export type Era = 'Ancient' | 'Medieval' | 'Modern' | 'Contemporary';
+
 export interface PhilosopherNode {
   id: string;
   name: string;
@@ -19,14 +21,23 @@ export interface PhilosopherNode {
     absoluteVsRelative: 'Absolute' | 'Relative' | 'Both';
   };
   switchPoints: SwitchPoint[];
-  domainStrengths: Record<Domain, number>;
-  influences: Connection[];
-  critiques: Connection[];
+  domainStrengths: Record<string, number>;
+  influences: string[];
+  critiques: string[];
   comprehensiveBiography: string;
   intellectualJourney: string;
-  primaryDomain: Domain;
-  era: 'Ancient' | 'Medieval' | 'Modern' | 'Contemporary';
+  primaryDomain: string;
+  era: Era;
   eraPosition: number;
+  birthLocation?: {
+    city: string;
+    region: string;
+    modernCountry: string;
+    coordinates: [number, number];
+  };
+  allDomains?: string[];
+  historicalContext?: string;
+  spiralTransitions?: string[];
 }
 
 export interface Connection {
@@ -42,7 +53,7 @@ export interface SwitchPoint {
   question: string;
   position: string;
   argument: string;
-  domainCascades: Record<Domain, string>;
+  domainCascades?: Record<string, string>;
 }
 
 export interface QuizQuestion {
