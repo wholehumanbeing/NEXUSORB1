@@ -136,7 +136,7 @@ export function FractillionTrace({ connections, activeTrace }: FractillionTraceP
   }, [connections]);
 
   useFrame(({ clock }) => {
-    if (material.uniforms) {
+    if (material.uniforms && material.uniforms.time) {
       material.uniforms.time.value = clock.elapsedTime;
     }
   });

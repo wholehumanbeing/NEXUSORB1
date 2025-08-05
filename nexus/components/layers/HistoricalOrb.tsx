@@ -1,7 +1,10 @@
 'use client';
 
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Environment } from '@react-three/drei';
+import dynamic from 'next/dynamic';
+
+const Canvas = dynamic(() => import('@react-three/fiber').then(mod => ({ default: mod.Canvas })), { ssr: false });
+const OrbitControls = dynamic(() => import('@react-three/drei').then(mod => ({ default: mod.OrbitControls })), { ssr: false });
+const Environment = dynamic(() => import('@react-three/drei').then(mod => ({ default: mod.Environment })), { ssr: false });
 import { PhilosopherCluster } from '@/components/3d/PhilosopherCluster';
 import { FractillionTrace } from '@/components/3d/FractillionTrace';
 import { NestedSpheres } from '@/components/3d/NestedSpheres';
@@ -83,7 +86,7 @@ export function HistoricalOrb() {
       )}
       
       {/* Loading State */}
-      {loading && (
+      {(loading || philosophers.length === 0) && (
         <div className="absolute inset-0 bg-black bg-opacity-75 flex items-center justify-center z-20">
           <div className="text-phosphor-green font-mono text-xl glow-text">
             LOADING PHILOSOPHICAL NEXUS...

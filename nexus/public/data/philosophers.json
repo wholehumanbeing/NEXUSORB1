@@ -1,0 +1,165 @@
+[
+  {
+    "id": "kant_immanuel",
+    "name": "Immanuel Kant",
+    "birthYear": 1724,
+    "deathYear": 1804,
+    "birthLocation": {
+      "city": "K\u00f6nigsberg",
+      "region": "Prussia",
+      "modernCountry": "Russia",
+      "coordinates": [
+        54.7051,
+        20.5101
+      ]
+    },
+    "primaryDomain": "Epistemology",
+    "allDomains": [
+      "Epistemology",
+      "Metaphysics",
+      "Ethics",
+      "Politics",
+      "Aesthetics"
+    ],
+    "domainStrengths": {
+      "Epistemology": 100,
+      "Metaphysics": 95,
+      "Ethics": 100,
+      "Politics": 80,
+      "Aesthetics": 85
+    },
+    "era": "Modern",
+    "eraPosition": 0.6,
+    "spiralDynamicsStage": "Blue-Orange",
+    "spiralJustification": "Enlightenment thinker bridging systematic order (Blue) and rational progress (Orange)",
+    "spiralTransitions": [
+      "Blue to Orange"
+    ],
+    "philosophicalGenome": {
+      "beingVsBecoming": "Both",
+      "oneVsMany": "Both",
+      "mindVsMatter": "Dualist",
+      "freedomVsDeterminism": "Dualist",
+      "transcendentVsImmanent": "Dualist",
+      "realismVsAntiRealism": "Dualist",
+      "reasonVsExperience": "Synthesis",
+      "absoluteVsRelative": "Absolute"
+    },
+    "switchPoints": [
+      {
+        "question": "How is synthetic a priori knowledge possible?",
+        "position": "Through the mind's a priori structures",
+        "argument": "Kant argued that knowledge requires both experience and a priori mental structures.",
+        "domainCascades": {
+          "Epistemology": "Redefines knowledge as limited to appearances",
+          "Metaphysics": "Limits speculative metaphysics"
+        }
+      }
+    ],
+    "comprehensiveBiography": "Immanuel Kant (1724-1804) was a German philosopher and one of the central Enlightenment thinkers.",
+    "intellectualJourney": "From dogmatic rationalism to critical philosophy.",
+    "influences": [],
+    "critiques": []
+  },
+  {
+    "id": "aristotle",
+    "name": "Aristotle",
+    "birthYear": -384,
+    "deathYear": -322,
+    "birthLocation": {
+      "city": "Stagira",
+      "region": "Macedonia",
+      "modernCountry": "Greece",
+      "coordinates": [
+        40.5,
+        23.75
+      ]
+    },
+    "primaryDomain": "Logic",
+    "allDomains": [
+      "Logic",
+      "Ethics",
+      "Metaphysics",
+      "Politics",
+      "Biology"
+    ],
+    "domainStrengths": {
+      "Logic": 100,
+      "Ethics": 95,
+      "Metaphysics": 95,
+      "Politics": 90,
+      "Biology": 85
+    },
+    "era": "Ancient",
+    "eraPosition": 0.7,
+    "spiralDynamicsStage": "Blue-Orange",
+    "spiralJustification": "Systematic categorizer with empirical methodology",
+    "spiralTransitions": [],
+    "philosophicalGenome": {
+      "beingVsBecoming": "Both",
+      "oneVsMany": "Both",
+      "mindVsMatter": "Synthesis",
+      "freedomVsDeterminism": "Both",
+      "transcendentVsImmanent": "Immanent",
+      "realismVsAntiRealism": "Realist",
+      "reasonVsExperience": "Synthesis",
+      "absoluteVsRelative": "Absolute"
+    },
+    "switchPoints": [],
+    "comprehensiveBiography": "Aristotle (384-322 BCE) was an Ancient Greek philosopher and polymath.",
+    "intellectualJourney": "From Plato's Academy to empirical naturalism.",
+    "influences": [],
+    "critiques": []
+  },
+  {
+    "id": "nietzsche_friedrich",
+    "name": "Friedrich Nietzsche",
+    "birthYear": 1844,
+    "deathYear": 1900,
+    "birthLocation": {
+      "city": "R\u00f6cken",
+      "region": "Prussia",
+      "modernCountry": "Germany",
+      "coordinates": [
+        51.25,
+        12.13
+      ]
+    },
+    "primaryDomain": "Ethics",
+    "allDomains": [
+      "Ethics",
+      "Aesthetics",
+      "Philosophy of Religion",
+      "Metaphysics"
+    ],
+    "domainStrengths": {
+      "Ethics": 100,
+      "Aesthetics": 95,
+      "Philosophy of Religion": 85,
+      "Metaphysics": 80,
+      "Epistemology": 75
+    },
+    "era": "Modern",
+    "eraPosition": 0.9,
+    "spiralDynamicsStage": "Orange-Green",
+    "spiralJustification": "Individual value creation moving toward perspectivism",
+    "spiralTransitions": [
+      "Orange to Green"
+    ],
+    "philosophicalGenome": {
+      "beingVsBecoming": "Becoming",
+      "oneVsMany": "Many",
+      "mindVsMatter": "Both",
+      "freedomVsDeterminism": "Freedom",
+      "transcendentVsImmanent": "Immanent",
+      "realismVsAntiRealism": "Anti-realist",
+      "reasonVsExperience": "Experience",
+      "absoluteVsRelative": "Relative"
+    },
+    "switchPoints": [],
+    "comprehensiveBiography": "Friedrich Nietzsche (1844-1900) was a German philosopher and cultural critic.",
+    "intellectualJourney": "From classical philology to radical value critique.",
+    "influences": [],
+    "critiques": []
+  }
+]

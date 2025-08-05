@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { HistoricalOrb } from '@/components/layers/HistoricalOrb';
 import { LayerNavigation } from '@/components/ui/LayerNavigation';
 import { Layer } from '@/lib/types';
@@ -8,6 +8,11 @@ import { Layer } from '@/lib/types';
 export default function PhilosophicalNexus() {
   const [currentLayer, setCurrentLayer] = useState<Layer>('historical');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
   
   const renderLayer = () => {
     switch (currentLayer) {
@@ -35,6 +40,17 @@ export default function PhilosophicalNexus() {
         return <HistoricalOrb />;
     }
   };
+
+  // Prevent hydration mismatch by only rendering on client
+  if (!isClient) {
+    return (
+      <div className="min-h-screen bg-black text-phosphor-green font-mono overflow-hidden flex items-center justify-center">
+        <div className="text-phosphor-green font-mono text-xl glow-text">
+          LOADING PHILOSOPHICAL NEXUS...
+        </div>
+      </div>
+    );
+  }
   
   return (
     <div className="min-h-screen bg-black text-phosphor-green font-mono overflow-hidden">
