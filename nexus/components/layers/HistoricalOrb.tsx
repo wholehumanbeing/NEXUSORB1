@@ -10,7 +10,7 @@ import { FractillionTrace } from '@/components/3d/FractillionTrace';
 import { NestedSpheres } from '@/components/3d/NestedSpheres';
 import { useHistoricalOrbStore } from '@/lib/stores/historical-orb-store';
 import { FilterPanel } from '@/components/ui/FilterPanel';
-import { PhilosopherInfoPanel } from '@/components/ui/PhilosopherInfoPanel';
+import { PhilosopherModal } from '@/components/ui/PhilosopherModal';
 import { useEffect } from 'react';
 
 export function HistoricalOrb() {
@@ -21,6 +21,7 @@ export function HistoricalOrb() {
     selectPhilosopher,
     setPhilosophers,
     setConnections,
+    filters,
     loading
   } = useHistoricalOrbStore();
 
@@ -48,6 +49,29 @@ export function HistoricalOrb() {
     selectPhilosopher(philosopher);
   };
 
+  // Filter philosophers based on selected filters
+  const filteredPhilosophers = philosophers.filter(phil => {
+    // Era filter
+    if (filters.era.length > 0 && !filters.era.includes(phil.era)) {
+      return false;
+    }
+    
+    // Domain filter
+    if (filters.domain.length > 0) {
+      const hasMatchingDomain = filters.domain.some(domain => 
+        phil.domainStrengths[domain] > 0
+      );
+      if (!hasMatchingDomain) return false;
+    }
+    
+    // Spiral stage filter
+    if (filters.spiralStage.length > 0 && !filters.spiralStage.includes(phil.spiralDynamicsStage)) {
+      return false;
+    }
+    
+    return true;
+  });
+
   return (
     <div className="relative h-screen bg-black text-phosphor-green">
       {/* 3D Canvas */}
@@ -61,7 +85,7 @@ export function HistoricalOrb() {
         
         <NestedSpheres eras={['Ancient', 'Medieval', 'Modern', 'Contemporary']} />
         <PhilosopherCluster 
-          philosophers={philosophers} 
+          philosophers={filteredPhilosophers} 
           onPhilosopherClick={handlePhilosopherClick}
         />
         <FractillionTrace connections={connections} />
@@ -79,11 +103,7 @@ export function HistoricalOrb() {
         <FilterPanel />
       </div>
       
-      {selectedPhilosopher && (
-        <div className="absolute bottom-4 right-4 z-10">
-          <PhilosopherInfoPanel philosopher={selectedPhilosopher} />
-        </div>
-      )}
+      {selectedPhilosopher && <PhilosopherModal philosopher={selectedPhilosopher} />}
       
       {/* Loading State */}
       {(loading || philosophers.length === 0) && (

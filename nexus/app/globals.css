@@ -73,6 +73,109 @@ a {
     inset 0 0 5px rgba(0,255,0,0.1);
 }
 
+/* Chromatic aberration effect */
+.chromatic-aberration {
+  position: relative;
+  animation: chromatic 2s ease-in-out infinite alternate;
+}
+
+.chromatic-aberration::before,
+.chromatic-aberration::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.8;
+}
+
+.chromatic-aberration::before {
+  color: var(--neon-cyan);
+  z-index: -1;
+  animation: glitch-1 0.5s linear infinite alternate;
+}
+
+.chromatic-aberration::after {
+  color: var(--critique-crimson);
+  z-index: -2;
+  animation: glitch-2 0.5s linear infinite alternate;
+}
+
+@keyframes chromatic {
+  0% { text-shadow: 0 0 5px var(--phosphor-green); }
+  100% { text-shadow: 0 0 10px var(--phosphor-green), 0 0 20px var(--phosphor-green); }
+}
+
+@keyframes glitch-1 {
+  0% { transform: translate(1px, 0); }
+  100% { transform: translate(-1px, 0); }
+}
+
+@keyframes glitch-2 {
+  0% { transform: translate(-1px, 0); }
+  100% { transform: translate(1px, 0); }
+}
+
+/* Scanline effect for modal */
+.scanline-effect {
+  position: relative;
+}
+
+.scanline-effect::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,255,0,0.05) 2px,
+    rgba(0,255,0,0.05) 4px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Grid pattern background */
+.grid-pattern {
+  background-image: 
+    linear-gradient(rgba(0,255,0,0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,255,0,0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
+  animation: grid-move 20s linear infinite;
+}
+
+@keyframes grid-move {
+  0% { background-position: 0 0; }
+  100% { background-position: 20px 20px; }
+}
+
+/* Glow bar for progress indicators */
+.glow-bar {
+  position: relative;
+  overflow: hidden;
+}
+
+.glow-bar::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(0,255,0,0.4) 0%, transparent 70%);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.5; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1); }
+}
+
 .chromatic-aberration {
   filter: drop-shadow(2px 0 0 #ff0000) drop-shadow(-2px 0 0 #00ffff);
 }

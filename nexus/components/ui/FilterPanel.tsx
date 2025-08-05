@@ -19,7 +19,16 @@ export function FilterPanel() {
     const newEras = filters.era.includes(era)
       ? filters.era.filter(e => e !== era)
       : [...filters.era, era];
-    updateFilters({ era: newEras });
+    
+    // When adding an era, also select all domains if none are selected
+    if (!filters.era.includes(era) && filters.domain.length === 0) {
+      updateFilters({ 
+        era: newEras,
+        domain: domains 
+      });
+    } else {
+      updateFilters({ era: newEras });
+    }
   };
 
   const toggleDomain = (domain: Domain) => {

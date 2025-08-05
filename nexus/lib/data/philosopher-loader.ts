@@ -49,29 +49,38 @@ export interface RawPhilosopherData {
  * Generates 3D position based on philosopher's characteristics
  */
 function calculatePosition(philosopher: RawPhilosopherData, index: number, total: number): [number, number, number] {
-  // Use era and primary characteristics to position in 3D space
-  const eraRadius = philosopher.eraPosition * 8; // Scale era position to radius
-  
-  // Map era to angle ranges
-  const eraAngles: Record<string, [number, number]> = {
-    'Ancient': [0, Math.PI / 2],
-    'Medieval': [Math.PI / 2, Math.PI],
-    'Modern': [Math.PI, 3 * Math.PI / 2],
-    'Contemporary': [3 * Math.PI / 2, 2 * Math.PI]
+  // Define distinct layers for each era
+  const eraLayers: Record<string, number> = {
+    'Ancient': 3,      // Innermost layer
+    'Medieval': 5,     // Second layer
+    'Modern': 7,       // Third layer
+    'Contemporary': 9  // Outermost layer
   };
   
-  const [minAngle, maxAngle] = eraAngles[philosopher.era] || [0, 2 * Math.PI];
-  const angle = minAngle + (philosopher.eraPosition * (maxAngle - minAngle));
+  const baseRadius = eraLayers[philosopher.era] || 5;
   
-  // Use genome characteristics for height positioning
+  // Calculate angle based on philosopher's position within their era
+  // Distribute philosophers evenly around the sphere for their era
+  const philosophersInEra = total; // This is approximate, could be refined
+  const angleStep = (2 * Math.PI) / philosophersInEra;
+  const baseAngle = index * angleStep;
+  
+  // Add some variation to avoid perfect grid
+  const angleVariation = (Math.random() - 0.5) * 0.3;
+  const angle = baseAngle + angleVariation;
+  
+  // Use genome characteristics for vertical positioning with more variation
   const genomeHeight = getGenomeHeight(philosopher.philosophicalGenome);
+  const heightVariation = (Math.random() - 0.5) * 0.5;
   
-  // Add some randomness based on philosopher's unique characteristics
-  const uniqueOffset = (philosopher.name.charCodeAt(0) % 100) / 100;
+  // Add slight radius variation to create organic feel
+  const radiusVariation = (Math.random() - 0.5) * 0.5;
+  const radius = baseRadius + radiusVariation;
   
-  const x = eraRadius * Math.cos(angle) + uniqueOffset;
-  const z = eraRadius * Math.sin(angle) + uniqueOffset;
-  const y = genomeHeight * 4 - 2; // Range from -2 to 2
+  // Calculate final position
+  const x = radius * Math.cos(angle);
+  const z = radius * Math.sin(angle);
+  const y = (genomeHeight * 3 - 1.5) + heightVariation; // Range from -1.5 to 1.5
   
   return [x, y, z];
 }

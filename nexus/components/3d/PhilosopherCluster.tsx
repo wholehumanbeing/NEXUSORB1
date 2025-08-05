@@ -16,7 +16,7 @@ export function PhilosopherCluster({ philosophers, onPhilosopherClick }: Philoso
   const materialRef = useRef<THREE.ShaderMaterial>(null);
   
   const { geometry, material } = useMemo(() => {
-    const geom = new THREE.SphereGeometry(0.1, 16, 16);
+    const geom = new THREE.SphereGeometry(0.3, 32, 32);
     
     // Map spiral dynamics stages to color indices
     const getSpiralIndex = (stage: string): number => {
@@ -103,7 +103,7 @@ export function PhilosopherCluster({ philosophers, onPhilosopherClick }: Philoso
       
       // Scale based on total domain influence
       const totalStrength = Object.values(phil.domainStrengths).reduce((sum, val) => sum + val, 0);
-      const scale = 0.05 + (totalStrength / 1000); // Scale between 0.05 and 0.55
+      const scale = 0.8 + (totalStrength / 500); // Scale between 0.8 and 2.4
       dummy.scale.setScalar(scale);
       
       dummy.updateMatrix();
