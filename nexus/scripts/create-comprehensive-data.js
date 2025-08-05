@@ -1,0 +1,512 @@
+const fs = require('fs');
+const path = require('path');
+
+// Create comprehensive philosopher data with all required fields
+const philosophers = [
+  {
+    "id": "kant_immanuel",
+    "name": "Immanuel Kant",
+    "birthYear": 1724,
+    "deathYear": 1804,
+    "birthLocation": {
+      "city": "Königsberg",
+      "region": "Prussia",
+      "modernCountry": "Russia",
+      "coordinates": [54.7051, 20.5101]
+    },
+    "primaryDomain": "Epistemology",
+    "allDomains": ["Epistemology", "Metaphysics", "Ethics", "Politics", "Aesthetics", "Philosophy of Religion"],
+    "domainStrengths": {
+      "Epistemology": 100,
+      "Metaphysics": 95,
+      "Ethics": 100,
+      "Politics": 80,
+      "Aesthetics": 85,
+      "Philosophy of Religion": 75
+    },
+    "era": "Modern",
+    "eraPosition": 0.6,
+    "spiralDynamicsStage": "Blue-Orange",
+    "spiralJustification": "Kant bridges systematic order (Blue) with rational progress (Orange), establishing universal moral laws while championing individual rational autonomy.",
+    "spiralTransitions": ["Blue to Orange"],
+    "philosophicalGenome": {
+      "beingVsBecoming": "Both",
+      "oneVsMany": "Both",
+      "mindVsMatter": "Dualist",
+      "freedomVsDeterminism": "Dualist",
+      "transcendentVsImmanent": "Dualist",
+      "realismVsAntiRealism": "Dualist",
+      "reasonVsExperience": "Synthesis",
+      "absoluteVsRelative": "Absolute"
+    },
+    "switchPoints": [
+      {
+        "question": "How is synthetic a priori knowledge possible?",
+        "position": "Through the mind's a priori structures",
+        "argument": "The mind actively structures experience through innate forms of intuition and categories of understanding.",
+        "domainCascades": {
+          "Epistemology": "Limits knowledge to appearances, not things-in-themselves",
+          "Metaphysics": "Restricts metaphysics to possible experience"
+        }
+      }
+    ],
+    "comprehensiveBiography": "Immanuel Kant (1724-1804) revolutionized philosophy with his critical system, synthesizing rationalism and empiricism.",
+    "intellectualJourney": "From dogmatic rationalism through Humean skepticism to critical philosophy.",
+    "influences": ["David Hume", "Jean-Jacques Rousseau", "Gottfried Leibniz", "Christian Wolff"],
+    "critiques": ["George Berkeley", "John Locke", "Traditional Metaphysics"],
+    "influenceMap": {
+      "hume_david": 90,
+      "rousseau_jean": 75,
+      "leibniz_gottfried": 70,
+      "wolff_christian": 65
+    },
+    "critiqueMap": {
+      "berkeley_george": 80,
+      "locke_john": 70,
+      "traditional_metaphysics": 95
+    }
+  },
+  {
+    "id": "aristotle",
+    "name": "Aristotle",
+    "birthYear": -384,
+    "deathYear": -322,
+    "birthLocation": {
+      "city": "Stagira",
+      "region": "Macedonia",
+      "modernCountry": "Greece",
+      "coordinates": [40.5, 23.75]
+    },
+    "primaryDomain": "Metaphysics",
+    "allDomains": ["Metaphysics", "Ethics", "Logic", "Politics", "Aesthetics", "Philosophy of Science"],
+    "domainStrengths": {
+      "Metaphysics": 100,
+      "Ethics": 95,
+      "Logic": 100,
+      "Politics": 90,
+      "Philosophy of Science": 95,
+      "Aesthetics": 80
+    },
+    "era": "Ancient",
+    "eraPosition": 0.8,
+    "spiralDynamicsStage": "Blue",
+    "spiralJustification": "Aristotle established systematic order in philosophy, creating comprehensive frameworks for understanding reality, ethics, and politics.",
+    "spiralTransitions": [],
+    "philosophicalGenome": {
+      "beingVsBecoming": "Being",
+      "oneVsMany": "Many",
+      "mindVsMatter": "Dualist",
+      "freedomVsDeterminism": "Both",
+      "transcendentVsImmanent": "Immanent",
+      "realismVsAntiRealism": "Realist",
+      "reasonVsExperience": "Both",
+      "absoluteVsRelative": "Absolute"
+    },
+    "switchPoints": [
+      {
+        "question": "What is the nature of universals?",
+        "position": "Universals exist in particular things",
+        "argument": "Forms are not separate from but inherent in material objects as their essential nature.",
+        "domainCascades": {
+          "Metaphysics": "Grounds reality in substance and form",
+          "Epistemology": "Knowledge comes from abstracting forms from particulars"
+        }
+      }
+    ],
+    "comprehensiveBiography": "Aristotle (384-322 BCE) was Plato's student who developed his own comprehensive philosophical system.",
+    "intellectualJourney": "From Platonic idealism to empirical realism and systematic philosophy.",
+    "influences": ["Plato", "Socrates"],
+    "critiques": ["Plato's Theory of Forms", "Pre-Socratic materialism"],
+    "influenceMap": {
+      "plato": 95,
+      "socrates": 60
+    },
+    "critiqueMap": {
+      "plato": 85,
+      "heraclitus": 70,
+      "democritus": 65
+    }
+  },
+  {
+    "id": "nietzsche_friedrich",
+    "name": "Friedrich Nietzsche",
+    "birthYear": 1844,
+    "deathYear": 1900,
+    "birthLocation": {
+      "city": "Röcken",
+      "region": "Prussia",
+      "modernCountry": "Germany",
+      "coordinates": [51.25, 12.13]
+    },
+    "primaryDomain": "Ethics",
+    "allDomains": ["Ethics", "Aesthetics", "Philosophy of Religion", "Metaphysics", "Epistemology"],
+    "domainStrengths": {
+      "Ethics": 100,
+      "Aesthetics": 95,
+      "Philosophy of Religion": 85,
+      "Metaphysics": 80,
+      "Epistemology": 75
+    },
+    "era": "Modern",
+    "eraPosition": 0.9,
+    "spiralDynamicsStage": "Orange-Green",
+    "spiralJustification": "Nietzsche champions individual value creation while embracing perspectivism and cultural critique.",
+    "spiralTransitions": ["Orange to Green"],
+    "philosophicalGenome": {
+      "beingVsBecoming": "Becoming",
+      "oneVsMany": "Many",
+      "mindVsMatter": "Both",
+      "freedomVsDeterminism": "Freedom",
+      "transcendentVsImmanent": "Immanent",
+      "realismVsAntiRealism": "Anti-realist",
+      "reasonVsExperience": "Experience",
+      "absoluteVsRelative": "Relative"
+    },
+    "switchPoints": [
+      {
+        "question": "What is the source of values?",
+        "position": "Human creation through will to power",
+        "argument": "Values are not discovered but created by individuals and cultures through power dynamics.",
+        "domainCascades": {
+          "Ethics": "Rejects universal morality for value creation",
+          "Epistemology": "Truth becomes perspectival"
+        }
+      }
+    ],
+    "comprehensiveBiography": "Friedrich Nietzsche (1844-1900) was a German philosopher who radically critiqued Western philosophy and morality.",
+    "intellectualJourney": "From classical philology through Schopenhauerian pessimism to affirmative philosophy of life.",
+    "influences": ["Arthur Schopenhauer", "Richard Wagner", "Heraclitus"],
+    "critiques": ["Kant", "Plato", "Christianity", "German Idealism"],
+    "influenceMap": {
+      "schopenhauer_arthur": 85,
+      "wagner_richard": 60,
+      "heraclitus": 70
+    },
+    "critiqueMap": {
+      "kant_immanuel": 90,
+      "plato": 95,
+      "aristotle": 80,
+      "hegel_georg": 85
+    }
+  },
+  {
+    "id": "plato",
+    "name": "Plato",
+    "birthYear": -428,
+    "deathYear": -348,
+    "birthLocation": {
+      "city": "Athens",
+      "region": "Attica",
+      "modernCountry": "Greece",
+      "coordinates": [37.9838, 23.7275]
+    },
+    "primaryDomain": "Metaphysics",
+    "allDomains": ["Metaphysics", "Epistemology", "Ethics", "Politics", "Aesthetics"],
+    "domainStrengths": {
+      "Metaphysics": 100,
+      "Epistemology": 95,
+      "Ethics": 90,
+      "Politics": 95,
+      "Aesthetics": 85
+    },
+    "era": "Ancient",
+    "eraPosition": 0.6,
+    "spiralDynamicsStage": "Blue",
+    "spiralJustification": "Plato sought eternal, perfect order through the Theory of Forms and ideal governance.",
+    "spiralTransitions": [],
+    "philosophicalGenome": {
+      "beingVsBecoming": "Being",
+      "oneVsMany": "One",
+      "mindVsMatter": "Mind",
+      "freedomVsDeterminism": "Both",
+      "transcendentVsImmanent": "Transcendent",
+      "realismVsAntiRealism": "Realist",
+      "reasonVsExperience": "Reason",
+      "absoluteVsRelative": "Absolute"
+    },
+    "switchPoints": [
+      {
+        "question": "What is ultimately real?",
+        "position": "The eternal, unchanging Forms",
+        "argument": "Physical reality is merely shadows of perfect, eternal Forms accessible through reason.",
+        "domainCascades": {
+          "Epistemology": "True knowledge is of the Forms, not sensible objects",
+          "Ethics": "The Good is the highest Form"
+        }
+      }
+    ],
+    "comprehensiveBiography": "Plato (428-348 BCE) was Socrates' student who founded the Academy and developed the Theory of Forms.",
+    "intellectualJourney": "From Socratic questioning to systematic metaphysics and political philosophy.",
+    "influences": ["Socrates", "Pythagoras", "Heraclitus", "Parmenides"],
+    "critiques": ["Sophists", "Materialists", "Democratic politics"],
+    "influenceMap": {
+      "socrates": 100,
+      "pythagoras": 70,
+      "heraclitus": 60,
+      "parmenides": 75
+    },
+    "critiqueMap": {
+      "protagoras": 85,
+      "democritus": 80,
+      "sophists": 90
+    }
+  },
+  {
+    "id": "descartes_rene",
+    "name": "René Descartes",
+    "birthYear": 1596,
+    "deathYear": 1650,
+    "birthLocation": {
+      "city": "La Haye",
+      "region": "Touraine",
+      "modernCountry": "France",
+      "coordinates": [47.0, 0.7]
+    },
+    "primaryDomain": "Epistemology",
+    "allDomains": ["Epistemology", "Metaphysics", "Philosophy of Science", "Philosophy of Mind"],
+    "domainStrengths": {
+      "Epistemology": 100,
+      "Metaphysics": 95,
+      "Philosophy of Science": 90,
+      "Philosophy of Mind": 95
+    },
+    "era": "Modern",
+    "eraPosition": 0.2,
+    "spiralDynamicsStage": "Orange",
+    "spiralJustification": "Descartes pioneered methodological skepticism and mathematical reasoning in philosophy.",
+    "spiralTransitions": ["Blue to Orange"],
+    "philosophicalGenome": {
+      "beingVsBecoming": "Being",
+      "oneVsMany": "Both",
+      "mindVsMatter": "Dualist",
+      "freedomVsDeterminism": "Freedom",
+      "transcendentVsImmanent": "Both",
+      "realismVsAntiRealism": "Realist",
+      "reasonVsExperience": "Reason",
+      "absoluteVsRelative": "Absolute"
+    },
+    "switchPoints": [
+      {
+        "question": "What can be known with certainty?",
+        "position": "I think, therefore I am",
+        "argument": "Through systematic doubt, only the thinking self remains indubitable.",
+        "domainCascades": {
+          "Epistemology": "Founds knowledge on self-evident truths",
+          "Metaphysics": "Establishes mind-body dualism"
+        }
+      }
+    ],
+    "comprehensiveBiography": "René Descartes (1596-1650) was a French philosopher who founded modern rationalism.",
+    "intellectualJourney": "From scholastic education through scientific revolution to founding modern philosophy.",
+    "influences": ["Augustine", "Galileo", "Medieval Scholastics"],
+    "critiques": ["Aristotelian physics", "Scholastic philosophy"],
+    "influenceMap": {
+      "augustine": 70,
+      "galileo": 80,
+      "aquinas_thomas": 50
+    },
+    "critiqueMap": {
+      "aristotle": 85,
+      "scholastics": 90
+    }
+  },
+  {
+    "id": "hume_david",
+    "name": "David Hume",
+    "birthYear": 1711,
+    "deathYear": 1776,
+    "birthLocation": {
+      "city": "Edinburgh",
+      "region": "Scotland",
+      "modernCountry": "United Kingdom",
+      "coordinates": [55.9533, -3.1883]
+    },
+    "primaryDomain": "Epistemology",
+    "allDomains": ["Epistemology", "Ethics", "Philosophy of Religion", "Political Philosophy"],
+    "domainStrengths": {
+      "Epistemology": 100,
+      "Ethics": 85,
+      "Philosophy of Religion": 80,
+      "Political Philosophy": 75
+    },
+    "era": "Modern",
+    "eraPosition": 0.5,
+    "spiralDynamicsStage": "Orange",
+    "spiralJustification": "Hume advanced empirical skepticism and naturalistic explanations of human nature.",
+    "spiralTransitions": [],
+    "philosophicalGenome": {
+      "beingVsBecoming": "Becoming",
+      "oneVsMany": "Many",
+      "mindVsMatter": "Both",
+      "freedomVsDeterminism": "Determinism",
+      "transcendentVsImmanent": "Immanent",
+      "realismVsAntiRealism": "Anti-realist",
+      "reasonVsExperience": "Experience",
+      "absoluteVsRelative": "Relative"
+    },
+    "switchPoints": [
+      {
+        "question": "What is the foundation of knowledge?",
+        "position": "Impressions and ideas from experience",
+        "argument": "All knowledge derives from sensory impressions; reason alone cannot establish matters of fact.",
+        "domainCascades": {
+          "Epistemology": "Limits knowledge to relations of ideas and matters of fact",
+          "Ethics": "Grounds morality in sentiment, not reason"
+        }
+      }
+    ],
+    "comprehensiveBiography": "David Hume (1711-1776) was a Scottish philosopher who developed radical empiricism.",
+    "intellectualJourney": "From religious upbringing through skeptical crisis to naturalistic philosophy.",
+    "influences": ["John Locke", "George Berkeley", "Isaac Newton"],
+    "critiques": ["Rationalism", "Religious metaphysics", "Innate ideas"],
+    "influenceMap": {
+      "locke_john": 85,
+      "berkeley_george": 75,
+      "newton_isaac": 70
+    },
+    "critiqueMap": {
+      "descartes_rene": 90,
+      "leibniz_gottfried": 85,
+      "traditional_metaphysics": 95
+    }
+  },
+  {
+    "id": "spinoza_baruch",
+    "name": "Baruch Spinoza",
+    "birthYear": 1632,
+    "deathYear": 1677,
+    "birthLocation": {
+      "city": "Amsterdam",
+      "region": "Holland",
+      "modernCountry": "Netherlands",
+      "coordinates": [52.3676, 4.9041]
+    },
+    "primaryDomain": "Metaphysics",
+    "allDomains": ["Metaphysics", "Ethics", "Epistemology", "Political Philosophy"],
+    "domainStrengths": {
+      "Metaphysics": 100,
+      "Ethics": 95,
+      "Epistemology": 90,
+      "Political Philosophy": 80
+    },
+    "era": "Modern",
+    "eraPosition": 0.3,
+    "spiralDynamicsStage": "Orange",
+    "spiralJustification": "Spinoza applied geometric reasoning to philosophy, seeking rational understanding of nature and ethics.",
+    "spiralTransitions": [],
+    "philosophicalGenome": {
+      "beingVsBecoming": "Being",
+      "oneVsMany": "One",
+      "mindVsMatter": "Both",
+      "freedomVsDeterminism": "Determinism",
+      "transcendentVsImmanent": "Immanent",
+      "realismVsAntiRealism": "Realist",
+      "reasonVsExperience": "Reason",
+      "absoluteVsRelative": "Absolute"
+    },
+    "switchPoints": [
+      {
+        "question": "What is the nature of reality?",
+        "position": "One infinite substance (God/Nature)",
+        "argument": "Everything is modes of the one substance with infinite attributes.",
+        "domainCascades": {
+          "Ethics": "Freedom through understanding necessity",
+          "Epistemology": "Knowledge as adequate ideas of substance"
+        }
+      }
+    ],
+    "comprehensiveBiography": "Baruch Spinoza (1632-1677) was a Dutch philosopher who developed substance monism.",
+    "intellectualJourney": "From Jewish education through excommunication to radical philosophical system.",
+    "influences": ["Descartes", "Maimonides", "Stoics"],
+    "critiques": ["Cartesian dualism", "Free will", "Anthropomorphic God"],
+    "influenceMap": {
+      "descartes_rene": 85,
+      "maimonides": 70,
+      "stoics": 65
+    },
+    "critiqueMap": {
+      "descartes_rene": 80,
+      "traditional_theology": 95
+    }
+  },
+  {
+    "id": "hegel_georg",
+    "name": "Georg Wilhelm Friedrich Hegel",
+    "birthYear": 1770,
+    "deathYear": 1831,
+    "birthLocation": {
+      "city": "Stuttgart",
+      "region": "Württemberg",
+      "modernCountry": "Germany",
+      "coordinates": [48.7758, 9.1829]
+    },
+    "primaryDomain": "Metaphysics",
+    "allDomains": ["Metaphysics", "Philosophy of History", "Logic", "Political Philosophy", "Aesthetics"],
+    "domainStrengths": {
+      "Metaphysics": 100,
+      "Philosophy of History": 95,
+      "Logic": 95,
+      "Political Philosophy": 85,
+      "Aesthetics": 80
+    },
+    "era": "Modern",
+    "eraPosition": 0.7,
+    "spiralDynamicsStage": "Orange-Green",
+    "spiralJustification": "Hegel synthesized rationalism with historical development, seeing truth as processual.",
+    "spiralTransitions": ["Orange to Green"],
+    "philosophicalGenome": {
+      "beingVsBecoming": "Becoming",
+      "oneVsMany": "Both",
+      "mindVsMatter": "Mind",
+      "freedomVsDeterminism": "Both",
+      "transcendentVsImmanent": "Both",
+      "realismVsAntiRealism": "Realist",
+      "reasonVsExperience": "Synthesis",
+      "absoluteVsRelative": "Absolute"
+    },
+    "switchPoints": [
+      {
+        "question": "What is the nature of reality?",
+        "position": "Reality is the dialectical development of Spirit",
+        "argument": "Truth emerges through thesis-antithesis-synthesis in historical development.",
+        "domainCascades": {
+          "Philosophy of History": "History as the self-realization of Spirit",
+          "Logic": "Dialectical logic replaces formal logic"
+        }
+      }
+    ],
+    "comprehensiveBiography": "Georg Wilhelm Friedrich Hegel (1770-1831) developed absolute idealism and dialectical philosophy.",
+    "intellectualJourney": "From theological studies through Kant and Fichte to systematic idealism.",
+    "influences": ["Kant", "Fichte", "Schelling", "Spinoza"],
+    "critiques": ["Kant's thing-in-itself", "Abstract reasoning", "Ahistorical philosophy"],
+    "influenceMap": {
+      "kant_immanuel": 90,
+      "fichte_johann": 85,
+      "schelling_friedrich": 80,
+      "spinoza_baruch": 70
+    },
+    "critiqueMap": {
+      "kant_immanuel": 85,
+      "empiricism": 80,
+      "formal_logic": 75
+    }
+  }
+];
+
+// Write the comprehensive data
+const outputPath = path.join(__dirname, '../public/data/philosophers.json');
+fs.writeFileSync(outputPath, JSON.stringify(philosophers, null, 2));
+
+console.log(`Successfully created comprehensive philosopher data with ${philosophers.length} philosophers`);
+console.log(`Saved to: ${outputPath}`);
+
+// Create a summary
+const summary = philosophers.map(p => ({
+  name: p.name,
+  era: p.era,
+  primaryDomain: p.primaryDomain,
+  connections: Object.keys(p.influenceMap).length + Object.keys(p.critiqueMap).length
+}));
+
+console.log('\nPhilosopher Summary:');
+console.table(summary);
