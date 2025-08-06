@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { HistoricalOrb } from '@/components/layers/HistoricalOrb';
 import { PersonalOrb } from '@/components/layers/PersonalOrb';
 import { LayerNavigation } from '@/components/ui/LayerNavigation';
+import { StarField } from '@/components/ui/StarField';
 import { Layer } from '@/lib/types';
 
 export default function PhilosophicalNexus() {
@@ -52,6 +53,7 @@ export default function PhilosophicalNexus() {
       <div className="nebula" />
       <div className="starfield" />
       <div className="distant-stars" />
+      <StarField />
       
       {/* CRT Effect Overlay */}
       <div className="fixed inset-0 pointer-events-none z-50 opacity-10">
