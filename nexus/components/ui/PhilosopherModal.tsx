@@ -114,18 +114,18 @@ export function PhilosopherModal({ philosopher }: PhilosopherModalProps) {
               {/* Philosophical Genome */}
               <div className="border border-phosphor-green p-4 glow-border">
                 <h3 className="text-neon-cyan text-sm mb-3 font-pixel">PHILOSOPHICAL GENOME</h3>
-                <div className="grid grid-cols-2 gap-2">
+                <div className="space-y-3">
                   {Object.entries(philosopher.philosophicalGenome).map(([trait, value]) => (
-                    <div key={trait} className="flex items-center justify-between">
-                      <span className="text-gray-400 text-xs uppercase">{trait}:</span>
-                      <div className="flex items-center gap-2">
-                        <div className="w-20 h-2 bg-gray-700 relative">
-                          <div 
-                            className="absolute top-0 left-0 h-full bg-neon-cyan glow-bar"
-                            style={{ width: `${typeof value === 'number' ? value * 10 : 50}%` }}
-                          />
-                        </div>
+                    <div key={trait} className="space-y-1">
+                      <div className="flex items-center justify-between">
+                        <span className="text-gray-400 text-xs uppercase">{trait}:</span>
                         <span className="text-neon-cyan text-xs">{value}</span>
+                      </div>
+                      <div className="w-full h-2 bg-gray-700 relative">
+                        <div 
+                          className="absolute top-0 left-0 h-full bg-neon-cyan glow-bar"
+                          style={{ width: `${typeof value === 'number' ? value * 10 : 50}%` }}
+                        />
                       </div>
                     </div>
                   ))}
