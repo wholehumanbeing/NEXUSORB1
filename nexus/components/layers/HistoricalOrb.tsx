@@ -125,7 +125,7 @@ export function HistoricalOrb() {
       </Canvas>
       
       {/* UI Overlays */}
-      <div className="absolute top-4 left-4 z-10">
+      <div className="absolute top-20 left-4 z-10">
         <FilterPanel />
       </div>
       

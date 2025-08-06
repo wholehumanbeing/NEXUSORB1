@@ -114,6 +114,36 @@ export function PhilosopherPanel({ philosopher }: PhilosopherPanelProps) {
     });
   };
 
+  const exploreArgument = async (argument: string) => {
+    setExploration(prev => ({ ...prev, isLoading: true }));
+    try {
+      const response = await fetch('/api/philosophy/explore', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          philosopher: philosopher.name,
+          argument,
+          type: 'argument'
+        })
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        setExploration({
+          isLoading: false,
+          content: data.content,
+          suggestedPaths: data.suggestedPaths,
+          relatedConcepts: data.relatedConcepts,
+          type: 'argument',
+          context: argument
+        });
+      }
+    } catch (error) {
+      console.error('Argument exploration error:', error);
+      setExploration(prev => ({ ...prev, isLoading: false }));
+    }
+  };
+
   const getLifespan = () => {
     const birth = philosopher.birthYear < 0 ? `${Math.abs(philosopher.birthYear)} BCE` : philosopher.birthYear.toString();
     const death = philosopher.deathYear < 0 ? `${Math.abs(philosopher.deathYear)} BCE` : philosopher.deathYear.toString();
@@ -294,7 +324,9 @@ export function PhilosopherPanel({ philosopher }: PhilosopherPanelProps) {
               <div className="border border-neon-cyan p-4 glow-border bg-void-black bg-opacity-50">
                 <div className="flex items-center justify-between mb-3">
                   <h3 className="text-neon-cyan text-sm font-pixel">
-                    {exploration.type === 'domain' ? 'DOMAIN EXPLORATION' : 'INFLUENCE ANALYSIS'}
+                    {exploration.type === 'domain' ? 'DOMAIN EXPLORATION' : 
+                     exploration.type === 'influence' ? 'INFLUENCE ANALYSIS' : 
+                     'ARGUMENT ANALYSIS'}
                   </h3>
                   <button
                     onClick={clearExploration}
@@ -323,12 +355,13 @@ export function PhilosopherPanel({ philosopher }: PhilosopherPanelProps) {
                         <h4 className="text-phosphor-green text-xs mb-2">EXPLORE NEXT:</h4>
                         <div className="flex flex-wrap gap-1">
                           {exploration.suggestedPaths.map((path, index) => (
-                            <span 
+                            <button
                               key={index}
+                              onClick={() => exploreArgument(path)}
                               className="px-2 py-1 text-xs border border-gray-600 text-gray-400 cursor-pointer hover:border-neon-cyan hover:text-neon-cyan transition-colors"
                             >
                               {path}
-                            </span>
+                            </button>
                           ))}
                         </div>
                       </div>

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { HistoricalOrb } from '@/components/layers/HistoricalOrb';
+import { PersonalOrb } from '@/components/layers/PersonalOrb';
 import { LayerNavigation } from '@/components/ui/LayerNavigation';
 import { Layer } from '@/lib/types';
 
@@ -19,14 +20,7 @@ export default function PhilosophicalNexus() {
       case 'historical':
         return <HistoricalOrb />;
       case 'personal':
-        return (
-          <div className="h-screen bg-black text-phosphor-green flex items-center justify-center font-mono">
-            <div className="text-center">
-              <h2 className="text-2xl mb-4 glow-text">PERSONAL ORB</h2>
-              <p className="text-neon-cyan">Coming Soon - Quiz & Personal Philosophy Visualization</p>
-            </div>
-          </div>
-        );
+        return <PersonalOrb />;
       case 'resonance':
         return (
           <div className="h-screen bg-black text-phosphor-green flex items-center justify-center font-mono">

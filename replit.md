@@ -19,12 +19,14 @@ Preferred communication style: Simple, everyday language.
 - Philosopher details should open as right-side panels instead of center modals to allow continued orb interaction
 - Focus on tool for exploring logical depths and implications of hyper-specific philosophical arguments
 - Emphasis on understanding historical evolution of arguments and contributions
+- Filter panel positioned below layer navigation to avoid UI overlap
 
 ### Vision for Archetype System
-- User selects 3 out of 12 philosophical archetypes to create unique composite (96 possible combinations)
+- User selects 3 out of 12 alchemical symbols to create unique composite (42 defined archetypes)
 - System poses archetype-specific philosophical questions, dilemmas, and problems
 - Platform guides users through philosophical resolutions and shocking implications
 - End goal: Beautiful geometric visualization of philosophical ideas based on user's journey
+- Implemented with retro-futuristic aesthetic matching the main application design
 
 ## System Architecture
 
@@ -116,12 +118,19 @@ A custom CSS injection system creates the retro-futuristic aesthetic featuring:
 
 The application is designed as a scalable 3D visualization platform that can handle 100+ philosophers with full database integration. The current Next.js implementation provides immersive 3D exploration with plans for:
 
+**Recent Updates (January 2025):**
+- **AI Exploration System**: Integrated Google Gemini for dynamic philosophical insights
+- **UI Improvements**: Fixed philosopher panel positioning (right-side) and layer navigation conflicts
+- **Archetype System**: Fully implemented Personal Orb layer with 42 archetypes from 12 alchemical symbols
+- **Interactive Journey**: Question-based philosophical exploration leading to personalized crystal visualization
+- **Exploration Breadcrumbs**: AI-powered suggested paths for deeper philosophical investigation
+
 **Future Expansion:**
 - **Database Integration**: Full PostgreSQL backend for 100+ philosophers
-- **Personal Orb Layer**: User philosophy profiling through interactive quizzes
 - **Resonance Chamber**: Meditative visualization reflecting user's philosophical state
 - **Advanced Filtering**: Era, domain, and influence-based exploration
 - **Social Features**: User profiles and philosophical discussion threads
+- **Archetype Persistence**: Save and share personal philosophical crystals
 
 **Research Integration:**
 - Comprehensive research prompt created for scaling to 100 philosophers
