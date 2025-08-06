@@ -11,7 +11,7 @@ import { NestedSpheres } from '@/components/3d/NestedSpheres';
 import { ParticleField } from '@/components/3d/ParticleField';
 import { useHistoricalOrbStore } from '@/lib/stores/historical-orb-store';
 import { FilterPanel } from '@/components/ui/FilterPanel';
-import { PhilosopherModal } from '@/components/ui/PhilosopherModal';
+import { PhilosopherPanel } from '@/components/ui/PhilosopherPanel';
 import { PhilosopherTooltip } from '@/components/ui/PhilosopherTooltip';
 import { PhilosopherPreview } from '@/components/ui/PhilosopherPreview';
 import { useEffect } from 'react';
@@ -140,8 +140,8 @@ export function HistoricalOrb() {
       {/* Preview Modal */}
       {previewPhilosopher && <PhilosopherPreview philosopher={previewPhilosopher} />}
       
-      {/* Full Bio Modal */}
-      {selectedPhilosopher && <PhilosopherModal philosopher={selectedPhilosopher} />}
+      {/* Full Bio Panel */}
+      {selectedPhilosopher && <PhilosopherPanel philosopher={selectedPhilosopher} />}
       
       {/* Loading State */}
       {(loading || philosophers.length === 0) && (

@@ -15,6 +15,17 @@ Target users include university philosophy students, educators, researchers, and
 
 Preferred communication style: Simple, everyday language.
 
+### Interface Preferences
+- Philosopher details should open as right-side panels instead of center modals to allow continued orb interaction
+- Focus on tool for exploring logical depths and implications of hyper-specific philosophical arguments
+- Emphasis on understanding historical evolution of arguments and contributions
+
+### Vision for Archetype System
+- User selects 3 out of 12 philosophical archetypes to create unique composite (96 possible combinations)
+- System poses archetype-specific philosophical questions, dilemmas, and problems
+- Platform guides users through philosophical resolutions and shocking implications
+- End goal: Beautiful geometric visualization of philosophical ideas based on user's journey
+
 ## System Architecture
 
 ### Frontend Architecture
