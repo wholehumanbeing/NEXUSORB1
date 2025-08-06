@@ -2,7 +2,16 @@
 
 import { PhilosopherNode } from '@/lib/types';
 import { useHistoricalOrbStore } from '@/lib/stores/historical-orb-store';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+
+interface ExplorationState {
+  isLoading: boolean;
+  content: string;
+  suggestedPaths: string[];
+  relatedConcepts: string[];
+  type: 'domain' | 'argument' | 'influence' | null;
+  context: string;
+}
 
 interface PhilosopherPanelProps {
   philosopher: PhilosopherNode;
@@ -10,6 +19,14 @@ interface PhilosopherPanelProps {
 
 export function PhilosopherPanel({ philosopher }: PhilosopherPanelProps) {
   const { selectPhilosopher } = useHistoricalOrbStore();
+  const [exploration, setExploration] = useState<ExplorationState>({
+    isLoading: false,
+    content: '',
+    suggestedPaths: [],
+    relatedConcepts: [],
+    type: null,
+    context: ''
+  });
 
   // Close panel on Escape key
   useEffect(() => {
@@ -24,6 +41,77 @@ export function PhilosopherPanel({ philosopher }: PhilosopherPanelProps) {
 
   const handleClose = () => {
     selectPhilosopher(null);
+  };
+
+  const exploreDomain = async (domain: string) => {
+    setExploration(prev => ({ ...prev, isLoading: true }));
+    try {
+      const response = await fetch('/api/philosophy/explore', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          philosopher: philosopher.name,
+          domain,
+          type: 'domain'
+        })
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        setExploration({
+          isLoading: false,
+          content: data.content,
+          suggestedPaths: data.suggestedPaths,
+          relatedConcepts: data.relatedConcepts,
+          type: 'domain',
+          context: domain
+        });
+      }
+    } catch (error) {
+      console.error('Domain exploration error:', error);
+      setExploration(prev => ({ ...prev, isLoading: false }));
+    }
+  };
+
+  const exploreInfluence = async (influence: string) => {
+    setExploration(prev => ({ ...prev, isLoading: true }));
+    try {
+      const response = await fetch('/api/philosophy/explore', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          philosopher: philosopher.name,
+          influence,
+          type: 'influence'
+        })
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        setExploration({
+          isLoading: false,
+          content: data.content,
+          suggestedPaths: data.suggestedPaths,
+          relatedConcepts: data.relatedConcepts,
+          type: 'influence',
+          context: influence
+        });
+      }
+    } catch (error) {
+      console.error('Influence exploration error:', error);
+      setExploration(prev => ({ ...prev, isLoading: false }));
+    }
+  };
+
+  const clearExploration = () => {
+    setExploration({
+      isLoading: false,
+      content: '',
+      suggestedPaths: [],
+      relatedConcepts: [],
+      type: null,
+      context: ''
+    });
   };
 
   const getLifespan = () => {
@@ -153,12 +241,13 @@ export function PhilosopherPanel({ philosopher }: PhilosopherPanelProps) {
                   .filter(([_, strength]) => strength > 50)
                   .sort(([,a], [,b]) => b - a)
                   .map(([domain]) => (
-                    <span 
+                    <button
                       key={domain}
+                      onClick={() => exploreDomain(domain)}
                       className="px-2 py-1 text-xs border border-neon-cyan text-neon-cyan hover:bg-neon-cyan hover:text-black transition-colors cursor-pointer"
                     >
                       {domain}
-                    </span>
+                    </button>
                   ))}
               </div>
             </div>
@@ -171,9 +260,13 @@ export function PhilosopherPanel({ philosopher }: PhilosopherPanelProps) {
                   <h4 className="text-phosphor-green text-xs mb-2">INFLUENCES</h4>
                   <div className="space-y-1">
                     {philosopher.influences.slice(0, 5).map((name, index) => (
-                      <div key={index} className="text-gray-400 text-xs hover:text-phosphor-green cursor-pointer">
+                      <button 
+                        key={index} 
+                        onClick={() => exploreInfluence(name)}
+                        className="text-gray-400 text-xs hover:text-phosphor-green cursor-pointer block w-full text-left"
+                      >
                         → {name}
-                      </div>
+                      </button>
                     ))}
                     {philosopher.influences.length === 0 && (
                       <div className="text-gray-600 text-xs italic">None recorded</div>
@@ -195,6 +288,64 @@ export function PhilosopherPanel({ philosopher }: PhilosopherPanelProps) {
                 </div>
               </div>
             </div>
+
+            {/* AI Exploration Panel */}
+            {(exploration.content || exploration.isLoading) && (
+              <div className="border border-neon-cyan p-4 glow-border bg-void-black bg-opacity-50">
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="text-neon-cyan text-sm font-pixel">
+                    {exploration.type === 'domain' ? 'DOMAIN EXPLORATION' : 'INFLUENCE ANALYSIS'}
+                  </h3>
+                  <button
+                    onClick={clearExploration}
+                    className="text-critique-crimson hover:text-phosphor-green transition-colors text-xs font-pixel"
+                  >
+                    [X]
+                  </button>
+                </div>
+                
+                {exploration.isLoading ? (
+                  <div className="text-phosphor-green text-xs animate-pulse">
+                    ANALYZING PHILOSOPHICAL CONNECTIONS...
+                  </div>
+                ) : (
+                  <div className="space-y-3">
+                    <div className="text-gray-300 text-xs mb-2">
+                      <span className="text-neon-cyan">{exploration.context}</span>
+                    </div>
+                    
+                    <div className="text-gray-300 text-xs leading-relaxed">
+                      {exploration.content}
+                    </div>
+                    
+                    {exploration.suggestedPaths.length > 0 && (
+                      <div>
+                        <h4 className="text-phosphor-green text-xs mb-2">EXPLORE NEXT:</h4>
+                        <div className="flex flex-wrap gap-1">
+                          {exploration.suggestedPaths.map((path, index) => (
+                            <span 
+                              key={index}
+                              className="px-2 py-1 text-xs border border-gray-600 text-gray-400 cursor-pointer hover:border-neon-cyan hover:text-neon-cyan transition-colors"
+                            >
+                              {path}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                    
+                    {exploration.relatedConcepts.length > 0 && (
+                      <div>
+                        <h4 className="text-phosphor-green text-xs mb-2">KEY CONCEPTS:</h4>
+                        <div className="text-gray-400 text-xs">
+                          {exploration.relatedConcepts.join(' • ')}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            )}
           </div>
 
           {/* Footer Stats */}

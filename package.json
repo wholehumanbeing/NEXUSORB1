@@ -10,6 +10,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@google/generative-ai": "^0.24.1",
     "@react-three/drei": "^9.95.0",
     "@react-three/fiber": "^8.15.0",
     "@types/node": "^20.11.5",

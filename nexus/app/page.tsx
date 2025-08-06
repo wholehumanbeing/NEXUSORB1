@@ -65,7 +65,7 @@ export default function PhilosophicalNexus() {
       </div>
       
       {/* Layer Navigation */}
-      <div className="fixed top-4 right-4 z-20">
+      <div className="fixed top-4 left-4 z-20">
         <LayerNavigation 
           currentLayer={currentLayer} 
           onLayerChange={setCurrentLayer}
