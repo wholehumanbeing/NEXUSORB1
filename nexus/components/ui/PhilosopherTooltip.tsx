@@ -9,6 +9,10 @@ interface PhilosopherTooltipProps {
 
 export function PhilosopherTooltip({ philosopher, position }: PhilosopherTooltipProps) {
   const getLifespan = () => {
+    if (!philosopher.birthYear || !philosopher.deathYear) {
+      return 'Unknown dates';
+    }
+    
     const birth = philosopher.birthYear < 0 ? `${Math.abs(philosopher.birthYear)} BCE` : philosopher.birthYear.toString();
     const death = philosopher.deathYear < 0 ? `${Math.abs(philosopher.deathYear)} BCE` : philosopher.deathYear.toString();
     return `${birth} - ${death}`;

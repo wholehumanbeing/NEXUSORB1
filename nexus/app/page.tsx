@@ -48,6 +48,11 @@ export default function PhilosophicalNexus() {
   
   return (
     <div className="min-h-screen bg-black text-phosphor-green font-mono overflow-hidden">
+      {/* Deep Space Background */}
+      <div className="nebula" />
+      <div className="starfield" />
+      <div className="distant-stars" />
+      
       {/* CRT Effect Overlay */}
       <div className="fixed inset-0 pointer-events-none z-50 opacity-10">
         <div className="w-full h-full bg-scanlines" />
