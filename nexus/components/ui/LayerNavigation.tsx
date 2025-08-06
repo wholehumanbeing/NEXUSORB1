@@ -1,6 +1,7 @@
 'use client';
 
 import { Layer } from '@/lib/types';
+import { useState } from 'react';
 
 interface LayerNavigationProps {
   currentLayer: Layer;
@@ -9,6 +10,7 @@ interface LayerNavigationProps {
 }
 
 export function LayerNavigation({ currentLayer, onLayerChange, isAuthenticated }: LayerNavigationProps) {
+  const [isMinimized, setIsMinimized] = useState(false);
   const layers: { id: Layer; name: string; description: string; requiresAuth: boolean }[] = [
     {
       id: 'historical',
@@ -30,11 +32,39 @@ export function LayerNavigation({ currentLayer, onLayerChange, isAuthenticated }
     }
   ];
 
+  const activeLayer = layers.find(l => l.id === currentLayer);
+
+  if (isMinimized) {
+    return (
+      <div className="bg-black border border-phosphor-green p-2 font-mono glow-border">
+        <div className="flex items-center justify-between">
+          <div className="text-phosphor-green font-pixel text-xs glow-text">
+            {activeLayer?.name}
+          </div>
+          <button
+            onClick={() => setIsMinimized(false)}
+            className="text-neon-cyan hover:text-phosphor-green transition-colors text-xs font-pixel ml-2"
+          >
+            [+]
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="bg-black border border-phosphor-green p-4 font-mono glow-border">
-      <h3 className="text-phosphor-green font-pixel text-xs mb-4 glow-text">
-        NEXUS LAYERS
-      </h3>
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="text-phosphor-green font-pixel text-xs glow-text">
+          NEXUS LAYERS
+        </h3>
+        <button
+          onClick={() => setIsMinimized(true)}
+          className="text-neon-cyan hover:text-phosphor-green transition-colors text-xs font-pixel"
+        >
+          [-]
+        </button>
+      </div>
       
       <div className="space-y-2">
         {layers.map((layer) => {
@@ -70,7 +100,7 @@ export function LayerNavigation({ currentLayer, onLayerChange, isAuthenticated }
       {/* Layer Status */}
       <div className="mt-4 pt-4 border-t border-gray-700">
         <div className="text-xs text-neon-cyan">
-          ACTIVE: {layers.find(l => l.id === currentLayer)?.name}
+          ACTIVE: {activeLayer?.name}
         </div>
         <div className="text-xs text-gray-400 mt-1">
           STATUS: {isAuthenticated ? 'AUTHENTICATED' : 'GUEST ACCESS'}
