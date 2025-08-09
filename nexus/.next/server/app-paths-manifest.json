@@ -1,4 +1,4 @@
 {
-  "/api/philosophers/route": "app/api/philosophers/route.js",
-  "/page": "app/page.js"
+  "/page": "app/page.js",
+  "/api/philosophy/explore/route": "app/api/philosophy/explore/route.js"
 }

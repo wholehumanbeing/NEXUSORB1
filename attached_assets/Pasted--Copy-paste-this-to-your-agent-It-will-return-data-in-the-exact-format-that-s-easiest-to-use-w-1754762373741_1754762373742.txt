@@ -1,0 +1,250 @@
+**Copy-paste this to your agent.** It will return data in the *exact* format that’s easiest to use with **Replit’s Postgres Database**: plain **SQL code blocks** you can paste into the SQL Runner (or run with `psql`). **No ZIPs.** Just copy/paste blocks or download the `.sql` files individually.
+
+---
+
+# AGENT PROMPT — “Replit-ready Copy/Paste SQL Seed for Philosophical Nexus”
+
+You are a senior data engineer + research assistant. Produce **Replit-ready SQL** to create and seed a Postgres database with **hundreds → thousands** of philosophers and related entities.
+
+**Absolutely do NOT return a zip.** Return **Markdown with multiple fenced SQL code blocks** that I can copy/paste directly into the **Replit Database → SQL Runner**. Each block must be executable on its own and idempotent.
+
+## Output format (strict)
+
+Return the following sections **as separate Markdown code blocks** (`sql … `), in this order:
+
+1. **SCHEMA.sql** — all enums, tables, indexes (CREATE IF NOT EXISTS patterns where possible).
+2. **INSERT\_PHILOSOPHERS\_1.sql**, **INSERT\_PHILOSOPHERS\_2.sql**, … (chunked batches; ≤ 1,000 INSERT rows per block).
+3. **INSERT\_WORKS\_\*.sql**
+4. **INSERT\_CONCEPTS\_\*.sql**
+5. **INSERT\_ARGUMENTS\_\*.sql**
+6. **INSERT\_EDGES\_\*.sql**
+7. **INSERT\_VIGNETTES\_\*.sql**
+8. **INSERT\_POP\_REFERENCES\_\*.sql**
+9. **VERIFY.sql** — quick sanity checks (counts, FK joins).
+
+Each INSERT statement must use **UPSERT** so I can safely re-run:
+
+```sql
+INSERT INTO philosophers (id, name, era, primary_domain, birth_year, death_year, summaries, genome, switch_points)
+VALUES
+  (...), (...), ...
+ON CONFLICT (id) DO UPDATE SET
+  name = EXCLUDED.name,
+  era = EXCLUDED.era,
+  primary_domain = EXCLUDED.primary_domain,
+  birth_year = COALESCE(EXCLUDED.birth_year, philosophers.birth_year),
+  death_year = COALESCE(EXCLUDED.death_year, philosophers.death_year),
+  summaries = COALESCE(EXCLUDED.summaries, philosophers.summaries),
+  genome = COALESCE(EXCLUDED.genome, philosophers.genome),
+  switch_points = COALESCE(EXCLUDED.switch_points, philosophers.switch_points);
+```
+
+Also include a short **“How to run on Replit”** snippet at the end:
+
+* Open **Replit → Database → SQL Runner**, paste **SCHEMA.sql**, run.
+* Paste each **INSERT\_\*.sql** block in order, run.
+* Paste **VERIFY.sql**, run (should show healthy counts and zero FK errors).
+* Alternatively in Shell: `psql "$DATABASE_URL" -f SCHEMA.sql` etc.
+
+## Target schema (use exactly)
+
+```sql
+-- Enums
+CREATE TYPE era_enum AS ENUM ('Ancient','Medieval','Modern','Contemporary');
+CREATE TYPE edge_type_enum AS ENUM ('influences','critiques','develops','formalizes','entails','in_tension_with','presupposes','is_example_of');
+CREATE TYPE logic_enum AS ENUM ('classical','intuitionistic','modal','deontic','many_valued','paraconsistent');
+CREATE TYPE vignette_class_enum AS ENUM ('ILLUSTRATION','HISTORICAL_CRITIQUE','FORMAL_RESULT');
+
+-- Tables
+CREATE TABLE IF NOT EXISTS philosophers(
+  id TEXT PRIMARY KEY,
+  name TEXT NOT NULL,
+  era era_enum NOT NULL,
+  birth_year INT, death_year INT,
+  birth_city TEXT, birth_region TEXT, birth_country TEXT,
+  lat DOUBLE PRECISION, lon DOUBLE PRECISION,
+  primary_domain TEXT NOT NULL,
+  spiral_dynamics_stage TEXT,
+  genome JSONB,                -- philosophicalGenome key→value
+  switch_points JSONB,         -- [{question,position,argument?,domainCascades?}]
+  summaries JSONB,             -- {overview, intellectualJourney, historicalContext}
+  fractillion_trace JSONB,
+  created_at TIMESTAMPTZ DEFAULT now()
+);
+
+CREATE TABLE IF NOT EXISTS philosopher_domains(
+  philosopher_id TEXT REFERENCES philosophers(id) ON DELETE CASCADE,
+  domain TEXT NOT NULL,
+  PRIMARY KEY (philosopher_id, domain)
+);
+
+CREATE TABLE IF NOT EXISTS works(
+  id TEXT PRIMARY KEY,
+  philosopher_id TEXT REFERENCES philosophers(id) ON DELETE CASCADE,
+  title TEXT NOT NULL,
+  year INT,
+  type TEXT,
+  link TEXT,
+  notes TEXT
+);
+
+CREATE TABLE IF NOT EXISTS concepts(
+  id TEXT PRIMARY KEY,
+  name TEXT NOT NULL,
+  domain TEXT,
+  definition TEXT,
+  citations JSONB DEFAULT '[]'::jsonb
+);
+
+CREATE TABLE IF NOT EXISTS arguments(
+  id TEXT PRIMARY KEY,
+  name TEXT NOT NULL,
+  domain TEXT NOT NULL,
+  logic logic_enum NOT NULL,
+  premises JSONB NOT NULL,     -- array of strings/LaTeX
+  conclusion TEXT NOT NULL,
+  proof JSONB,                 -- {calculus?, steps?}
+  citations JSONB DEFAULT '[]'::jsonb
+);
+
+CREATE TABLE IF NOT EXISTS edges(
+  id BIGSERIAL PRIMARY KEY,
+  source_id TEXT NOT NULL,
+  source_type TEXT NOT NULL CHECK (source_type IN ('philosopher','concept','argument','work')),
+  target_id TEXT NOT NULL,
+  target_type TEXT NOT NULL CHECK (target_type IN ('philosopher','concept','argument','work')),
+  type edge_type_enum NOT NULL,
+  weight REAL,
+  notes TEXT,
+  since_year INT
+);
+
+CREATE TABLE IF NOT EXISTS vignettes(
+  id TEXT PRIMARY KEY,
+  title TEXT NOT NULL,
+  classification vignette_class_enum NOT NULL,
+  text TEXT NOT NULL,
+  sources JSONB DEFAULT '[]'::jsonb,        -- [{title,url}]
+  linked_entities JSONB DEFAULT '[]'::jsonb -- array of IDs
+);
+
+CREATE TABLE IF NOT EXISTS pop_references(
+  id TEXT PRIMARY KEY,
+  media_type TEXT,
+  title TEXT NOT NULL,
+  year INT,
+  link TEXT,
+  description TEXT
+);
+
+CREATE TABLE IF NOT EXISTS concept_pop_refs(
+  concept_id TEXT REFERENCES concepts(id) ON DELETE CASCADE,
+  pop_reference_id TEXT REFERENCES pop_references(id) ON DELETE CASCADE,
+  PRIMARY KEY (concept_id, pop_reference_id)
+);
+
+-- Indexes
+CREATE INDEX IF NOT EXISTS idx_philosophers_name ON philosophers USING gin (to_tsvector('english', name));
+CREATE INDEX IF NOT EXISTS idx_concepts_name ON concepts USING gin (to_tsvector('english', name));
+CREATE INDEX IF NOT EXISTS idx_edges_src ON edges(source_id, source_type);
+CREATE INDEX IF NOT EXISTS idx_edges_tgt ON edges(target_id, target_type);
+```
+
+## Data requirements
+
+* **Scale**: At least **600 philosophers** in first pass; expandable to **3,000+**.
+* **Coverage**: Ancient/Medieval/Modern/Contemporary; include non-Western traditions (e.g., Indian, Chinese, African, Islamic, Latin American).
+* **Fields (required)** for philosophers: `id` (ASCII slug), `name`, `era`, `primary_domain`, `summaries.overview` (≤120 words, neutral).
+* **IDs**: use `lowercase-kebab-or_snake`, unique across all entities.
+* **Citations**: Prefer SEP/IEP/academic sources; add `{title,url}` entries in `citations`.
+* **Quality**: Deduplicate; validate dates (`birth_year <= death_year`); ensure all `edges` reference existing IDs; escape quotes.
+
+## Example rows to mimic (use these shapes in INSERT blocks)
+
+```sql
+-- philosophers (minimal fields shown)
+INSERT INTO philosophers (id,name,era,primary_domain,birth_year,death_year,summaries,genome,switch_points)
+VALUES
+('kant_immanuel','Immanuel Kant','Modern','Epistemology',1724,1804,
+ '{"overview":"Critical philosophy: transcendental idealism; deontological ethics based on autonomy."}',
+ '{"reasonVsExperience":"Synthesis","absoluteVsRelative":"Absolute"}',
+ '[{"question":"How is synthetic a priori knowledge possible?","position":"Through the mind''s a priori structures"}]'
+)
+ON CONFLICT (id) DO UPDATE SET name=EXCLUDED.name;
+
+-- concepts
+INSERT INTO concepts (id,name,domain,definition,citations) VALUES
+('categorical-imperative','Categorical Imperative','Ethics','Act only on maxims you can will as universal law.',
+ '[{"title":"Groundwork","url":"https://example.org"}]')
+ON CONFLICT (id) DO NOTHING;
+
+-- arguments
+INSERT INTO arguments (id,name,domain,logic,premises,conclusion,citations) VALUES
+('util-maximize-happiness','Act Utilitarianism','Ethics','deontic',
+ '["Right action maximizes total utility"]',
+ 'An action is right iff it maximizes total utility.',
+ '[{"title":"J.S. Mill, Utilitarianism","url":"https://example.org"}]')
+ON CONFLICT (id) DO NOTHING;
+
+-- edges
+INSERT INTO edges (source_id,source_type,target_id,target_type,type,notes) VALUES
+('kant_immanuel','philosopher','categorical-imperative','concept','develops',NULL)
+RETURNING id;
+
+-- vignettes
+INSERT INTO vignettes (id,title,classification,text,sources,linked_entities) VALUES
+('edgecase_util_trolley','Five vs One (Classic Trolley)','ILLUSTRATION',
+ 'If rightness = maximizing outcomes, you must flip the switch even when personal ties exist.',
+ '[{"title":"Foot 1967","url":"https://example.org"}]',
+ '["util-maximize-happiness","trolley-problem"]')
+ON CONFLICT (id) DO NOTHING;
+```
+
+## Scaling & chunking rules
+
+* Split INSERT blocks so each is ≤ **200 KB** and each `VALUES` list contains ≤ **1,000 rows**.
+* Wrap each block in a transaction:
+
+```sql
+BEGIN;
+-- many INSERT ... ON CONFLICT ...
+COMMIT;
+```
+
+* Use only standard SQL; **do not** rely on `COPY FROM STDIN` or external files.
+
+## Verification block (include at end)
+
+```sql
+-- VERIFY.sql
+SELECT 'philosophers' AS table, COUNT(*) FROM philosophers
+UNION ALL SELECT 'works', COUNT(*) FROM works
+UNION ALL SELECT 'concepts', COUNT(*) FROM concepts
+UNION ALL SELECT 'arguments', COUNT(*) FROM arguments
+UNION ALL SELECT 'edges', COUNT(*) FROM edges
+UNION ALL SELECT 'vignettes', COUNT(*) FROM vignettes;
+
+-- FK sanity: sample of 20 valid edges
+SELECT e.type, e.source_id, e.source_type, e.target_id, e.target_type
+FROM edges e
+WHERE
+  ( (e.source_type='philosopher' AND EXISTS (SELECT 1 FROM philosophers p WHERE p.id=e.source_id))
+    OR (e.source_type='concept' AND EXISTS (SELECT 1 FROM concepts c WHERE c.id=e.source_id))
+    OR (e.source_type='argument' AND EXISTS (SELECT 1 FROM arguments a WHERE a.id=e.source_id))
+    OR (e.source_type='work' AND EXISTS (SELECT 1 FROM works w WHERE w.id=e.source_id)) )
+  AND
+  ( (e.target_type='philosopher' AND EXISTS (SELECT 1 FROM philosophers p2 WHERE p2.id=e.target_id))
+    OR (e.target_type='concept' AND EXISTS (SELECT 1 FROM concepts c2 WHERE c2.id=e.target_id))
+    OR (e.target_type='argument' AND EXISTS (SELECT 1 FROM arguments a2 WHERE a2.id=e.target_id))
+    OR (e.target_type='work' AND EXISTS (SELECT 1 FROM works w2 WHERE w2.id=e.target_id)) )
+LIMIT 20;
+```
+
+## Research guidance
+
+* Use reputable sources (SEP, IEP, academic presses). Paraphrase; short neutral summaries.
+* Ensure global coverage (Greek, Indian, Chinese, Islamic, African, Latin American, Indigenous, contemporary analytic & continental).
+* Provide **2–3 vignettes** per major stance (labeled with `vignette_class_enum`).
+* For arguments, set `logic` strictly to one of the enum values.
+
+**Deliver now as Markdown with the SQL code blocks only (no archives).**
