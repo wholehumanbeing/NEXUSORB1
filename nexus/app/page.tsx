@@ -24,10 +24,10 @@ export default function PhilosophicalNexus() {
         return <PersonalOrb />;
       case 'resonance':
         return (
-          <div className="h-screen bg-black text-phosphor-green flex items-center justify-center font-mono">
+          <div className="h-screen bg-black text-phosphor-green flex items-center justify-center font-primary">
             <div className="text-center">
-              <h2 className="text-2xl mb-4 glow-text">RESONANCE CHAMBER</h2>
-              <p className="text-neon-cyan">Coming Soon - Meditative Particle Visualization</p>
+              <h2 className="text-2xl mb-4 glow-text font-primary-medium">RESONANCE CHAMBER</h2>
+              <p className="text-neon-cyan text-readable">Coming Soon - Meditative Particle Visualization</p>
             </div>
           </div>
         );
@@ -39,8 +39,8 @@ export default function PhilosophicalNexus() {
   // Prevent hydration mismatch by only rendering on client
   if (!isClient) {
     return (
-      <div className="min-h-screen bg-black text-phosphor-green font-mono overflow-hidden flex items-center justify-center">
-        <div className="text-phosphor-green font-mono text-xl glow-text">
+      <div className="min-h-screen bg-black text-phosphor-green font-primary overflow-hidden flex items-center justify-center">
+        <div className="text-phosphor-green font-primary-medium text-xl glow-text">
           LOADING PHILOSOPHICAL NEXUS...
         </div>
       </div>
@@ -48,7 +48,7 @@ export default function PhilosophicalNexus() {
   }
   
   return (
-    <div className="min-h-screen bg-black text-phosphor-green font-mono overflow-hidden">
+    <div className="min-h-screen bg-black text-phosphor-green font-primary overflow-hidden">
       {/* Deep Space Background */}
       <div className="nebula" />
       <div className="starfield" />
@@ -80,7 +80,7 @@ export default function PhilosophicalNexus() {
           <h1 className="font-pixel text-sm text-phosphor-green glow-text chromatic-aberration">
             THE PHILOSOPHICAL NEXUS
           </h1>
-          <div className="text-xs text-neon-cyan text-center mt-1">
+          <div className="text-xs text-neon-cyan text-center mt-1 font-primary">
             v0.1.0 // 2,500+ YEARS OF THOUGHT
           </div>
         </div>
@@ -89,9 +89,9 @@ export default function PhilosophicalNexus() {
       {/* Authentication Notice */}
       {!isAuthenticated && (
         <div className="fixed bottom-4 left-4 z-20">
-          <div className="bg-black border border-neon-cyan px-3 py-2 text-xs font-mono">
-            <div className="text-neon-cyan">GUEST ACCESS MODE</div>
-            <div className="text-gray-400 mt-1">Limited to Historical Orb</div>
+          <div className="bg-black border border-neon-cyan px-3 py-2 text-xs font-primary">
+            <div className="text-neon-cyan font-primary-medium">GUEST ACCESS MODE</div>
+            <div className="text-gray-400 mt-1 text-readable-sm">Limited to Historical Orb</div>
           </div>
         </div>
       )}

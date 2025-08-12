@@ -3,6 +3,8 @@
   \***************************************************************************************************************************************************************************************************************************************************************/
 @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
 /*
 ! tailwindcss v3.4.1 | MIT License | https://tailwindcss.com
 */
@@ -1037,6 +1039,9 @@ video {
   --neon-cyan: #00FFFF;
   --void-black: #000000;
   --critique-crimson: #FF0000;
+  --primary-font: 'JetBrains Mono', 'Space Mono', monospace;
+  --accent-font: 'VT323', monospace;
+  --pixel-font: 'Press Start 2P', cursive;
 }
 
 * {
@@ -1051,12 +1056,17 @@ body {
   overflow-x: hidden;
   background-color: var(--void-black);
   color: var(--phosphor-green);
-  font-family: 'VT323', monospace;
+  font-family: var(--primary-font);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
 }
 
 body {
   color: var(--phosphor-green);
   background: linear-gradient(180deg, #000000 0%, #001100 100%);
+  font-weight: 400;
+  font-size: 16px;
 }
 
 a {
@@ -1331,40 +1341,100 @@ a {
   background: var(--phosphor-green);
   color: var(--void-black);
 }
+
+/* Font utility classes */
+.font-primary {
+  font-family: var(--primary-font);
+  font-weight: 400;
+}
+
+.font-primary-medium {
+  font-family: var(--primary-font);
+  font-weight: 500;
+}
+
+.font-primary-bold {
+  font-family: var(--primary-font);
+  font-weight: 600;
+}
+
+.font-accent {
+  font-family: var(--accent-font);
+  font-weight: 400;
+}
+
+.font-pixel {
+  font-family: var(--pixel-font);
+  font-weight: 400;
+}
+
+/* Enhanced text readability */
+.text-readable {
+  font-family: var(--primary-font);
+  font-weight: 400;
+  letter-spacing: 0.025em;
+  line-height: 1.6;
+}
+
+.text-readable-sm {
+  font-family: var(--primary-font);
+  font-weight: 400;
+  font-size: 14px;
+  letter-spacing: 0.025em;
+  line-height: 1.5;
+}
+
+.text-readable-lg {
+  font-family: var(--primary-font);
+  font-weight: 500;
+  font-size: 18px;
+  letter-spacing: 0.025em;
+  line-height: 1.6;
+}
+
 .hover\:border-neon-cyan:hover{
   --tw-border-opacity: 1;
   border-color: rgb(0 255 255 / var(--tw-border-opacity));
 }
+
 .hover\:border-phosphor-green:hover{
   --tw-border-opacity: 1;
   border-color: rgb(0 255 0 / var(--tw-border-opacity));
 }
+
 .hover\:bg-critique-crimson:hover{
   --tw-bg-opacity: 1;
   background-color: rgb(255 0 0 / var(--tw-bg-opacity));
 }
+
 .hover\:bg-neon-cyan:hover{
   --tw-bg-opacity: 1;
   background-color: rgb(0 255 255 / var(--tw-bg-opacity));
 }
+
 .hover\:bg-phosphor-green:hover{
   --tw-bg-opacity: 1;
   background-color: rgb(0 255 0 / var(--tw-bg-opacity));
 }
+
 .hover\:bg-opacity-30:hover{
   --tw-bg-opacity: 0.3;
 }
+
 .hover\:bg-opacity-5:hover{
   --tw-bg-opacity: 0.05;
 }
+
 .hover\:text-black:hover{
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
 }
+
 .hover\:text-neon-cyan:hover{
   --tw-text-opacity: 1;
   color: rgb(0 255 255 / var(--tw-text-opacity));
 }
+
 .hover\:text-phosphor-green:hover{
   --tw-text-opacity: 1;
   color: rgb(0 255 0 / var(--tw-text-opacity));

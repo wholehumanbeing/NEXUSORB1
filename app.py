@@ -129,7 +129,10 @@ def main():
                 if selection and 'points' in selection and selection['points']:
                     point_index = selection['points'][0]['pointIndex']
                     if point_index < len(filtered_df):
-                        st.session_state.selected_philosopher = filtered_df.iloc[point_index]['id'] if hasattr(filtered_df, 'iloc') else filtered_df[point_index]['id']
+                        if hasattr(filtered_df, 'iloc'):
+                            st.session_state.selected_philosopher = filtered_df.iloc[point_index]['id']
+                        else:
+                            st.session_state.selected_philosopher = filtered_df[point_index]['id']
                         st.rerun()
         else:
             st.warning("No philosophers match the current filters.")
